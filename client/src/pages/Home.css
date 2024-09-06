@@ -1,0 +1,206 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: -box;
+  font-family: "Asap", sans-serif;
+}
+
+html {
+  background-color: white;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  box-sizing: border-box;
+}
+
+.toolbar {
+  text-align: right;
+  padding-right: 30px;
+  height: 100px;
+  background-color: #BA2626;
+}
+
+.toolbar a {
+  display: inline-block;
+  color: white;
+  padding-left: 40px;
+  padding-top: 34px;
+  font-size: 26px;
+  text-decoration: none;
+  font-family: 'Roboto';
+  font-weight: bolder;
+
+}
+
+.toolbar a:hover {
+  color: #CAC1C1;
+}
+
+.toolbar .homelink a {
+  color: white;
+  float: left;
+  font-size: 50px;
+  padding-top: 20px;
+  padding-left: 60px;
+}
+
+.main {
+  width: 100%;
+}
+
+.maintext {
+  display: block;
+  padding: 0;
+  margin: 0;
+  padding-top: 20vh;
+  width: 40%;
+  font-size: 1.8vw;
+  padding-left: 8%;
+  float: left;
+
+}
+
+.main_image {
+  display: block;
+  padding-top: 25vh;
+  padding-left: 5%;
+  padding-right: 5%;
+  float: right;
+  margin-top: 0;
+  width: 40%;
+  height: 500px;
+}
+
+.main_image img {
+  width: 90%;
+  border-radius: 2%;
+}
+
+.maintext .find-food-btn,
+.post-food-btn {
+  background-color: #BA2626;
+  /* Green */
+  border: none;
+  margin-top: 40px;
+  margin-left: 10px;
+  color: white;
+  padding: 15px 32px;
+  border-radius: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.maintext a {
+  text-decoration: none;
+}
+
+.post-food-btn {
+  margin-left: 40px;
+}
+
+.post-food-btn:hover {
+  background-color: #8c1b1b;
+}
+
+.find-food-btn:hover {
+  background-color: #8c1b1b;
+}
+
+.lowerbar {
+  width: 100%;
+  background-color: #BA2626;
+  height: 16vw;
+  margin-top: 50vw;
+}
+
+.lowerbar #contact-lower {
+  color: white;
+  float: left;
+  padding-left: 120px;
+  padding-top: 80px;
+  font-size: 30px;
+  width: 13%;
+}
+
+.lowerbar #contact-lower ul {
+  padding-top: 10px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  list-style-type: none;
+}
+
+.lowerbar #contact-lower li {
+  padding-top: 10px;
+  color: white;
+  text-decoration: none;
+  font-size: 22px;
+  font-weight: normal;
+  list-style-type: none;
+}
+
+.lowerbar #contact-lower a {
+  padding-top: 10px;
+  color: white;
+  text-decoration: none;
+}
+
+.lowerbar #lower-bar-images img {
+  width: 30%;
+  color: white;
+  text-decoration: none;
+  padding-bottom: 0px;
+  padding-left: 10px;
+}
+
+.lowerbar #lower-bar-images {
+  float: right;
+  width: 20%;
+  height: 16vw;
+}
+
+.lowerbar #lower-bar-images #esw-logo {
+  padding-top: 30px;
+  width: 70%;
+}
+
+.lowerbar #lower-bar-images #cornell-logo {
+  width: 40%;
+  padding-left: 70px;
+}
+
+.lowerbar #nav-lower {
+  color: white;
+  float: left;
+  padding-top: 80px;
+  font-size: 30px;
+  width: 20%;
+}
+
+
+.lowerbar #nav-lower ul {
+  padding-top: 10px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  list-style-type: none;
+}
+
+.lowerbar #nav-lower li {
+  padding-top: 10px;
+  color: white;
+  text-decoration: none;
+  font-size: 22px;
+  font-weight: normal;
+  list-style-type: none;
+}
+
+.lowerbar #nav-lower a {
+  padding-top: 10px;
+  color: white;
+  text-decoration: none;
+}

@@ -1,0 +1,144 @@
+h1 {
+  margin: 15px;
+}
+
+.topnav {
+  background-color: #BA2626;
+  overflow: hidden;
+}
+
+.topnav a {
+  float: right;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 20px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  color: white;
+}
+
+.login {
+  width: 320px;
+  padding: 30px;
+  padding-top: 156px;
+  align-self: center;
+}
+
+.login__field {
+  padding: 20px 0px;
+  position: relative;
+}
+
+.login__icon {
+  position: absolute;
+  top: 30px;
+  color: black;
+}
+
+.login__input {
+  border: none;
+  border-bottom: 2px solid #D1D1D4;
+  background: none;
+  padding: 10px;
+  padding-left: 24px;
+  font-weight: 700;
+  width: 75%;
+  transition: .2s;
+}
+
+.login__input:active,
+.login__input:focus,
+.login__input:hover {
+  outline: none;
+}
+
+.login__submit {
+  background: #BA2626;
+  color: white;
+  font-size: 20px;
+  padding: 10px 14px;
+  border-radius: 26px;
+  font-weight: bold;
+  align-items: center;
+  cursor: pointer;
+  transition: .2s;
+  border: none;
+  outline: none;
+}
+
+.login__submit:active,
+.login__submit:focus,
+.login__submit:hover {
+  outline: none;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+footer {
+  position: fixed;
+  background-color: #BA2626;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  height: 5%;
+  text-align: center;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-left {
+  /* Takes all available space on the left */
+  text-align: left;
+}
+
+.footer-right {
+  text-align: center;
+  font-size: 10px;
+}
+
+.copyright {
+  flex: 1;
+  text-align: bottom;
+}
+
+.footer-left a {
+  text-decoration: none;
+  color: white;
+  /* Link color */
+  margin-right: 20px;
+  /* Add space between the links */
+}
+
+.styled-image {
+  max-width: 40px;
+  /* Adjust the size of the picture */
+}
+
+.styled-image2 {
+  max-width: 100px;
+  /* Adjust the size of the picture */
+}

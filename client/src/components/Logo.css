@@ -1,0 +1,14 @@
+.logoFont {
+  display: inline-block;
+  position: relative;
+  width: 150px;
+  height: 30px;
+
+
+  font-style: normal;
+  font-weight: bold;
+  font-size: 28px;
+  text-align: left;
+
+  color: white;
+}

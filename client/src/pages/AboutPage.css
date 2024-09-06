@@ -1,0 +1,46 @@
+.about-page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.about-section {
+  margin-bottom: 30px;
+}
+
+.about-section h2 {
+  display: inline-block;
+  border: 3px solid #BA2626;
+  padding: 10px;
+}
+
+.about-section p {
+  margin-top: 10px;
+  background-color: rgba(229, 171, 171, 0.5);
+  padding: 10px
+}
+
+.about-section .team-members {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.about-section .team-member {
+  text-align: center;
+  width: 30%;
+  margin-bottom: 20px;
+}
+
+.about-section .team-member img {
+  padding-top: 10px;
+  width: 50%;
+  border-radius: 70%;
+}
+
+.about-section .team-member p {
+  margin-top: 10px;
+  font-weight: bold;
+}
