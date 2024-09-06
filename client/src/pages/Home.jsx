@@ -6,6 +6,8 @@ import './Home.css';
 import { DatePicker } from 'antd';
 import { TinyColor } from '@ctrl/tinycolor';
 import { Button, ConfigProvider, Space } from 'antd';
+import {useState} from 'react';
+import {useEffect} from 'react';
 
 const colors1 = ['#6253E1', '#04BEFE'];
 const colors2 = ['#fc6076', '#ff9a44', '#ef9d43', '#e75516'];
@@ -16,7 +18,21 @@ const getActiveColors = (colors) =>
   colors.map((color) => new TinyColor(color).darken(5).toString());
 
 const Home = () => {
+  const [testMessage, setTestMessage] = useState("None");
+
+  function callAPI () {
+    fetch("http://localhost:9000/testAPI")
+        .then(res => res.text())
+        .then(res => setTestMessage(res))
+        .catch(err => setTestMessage("ERROR"));
+  }
+
+  useEffect(() => {
+    callAPI();
+  }, [])
+
   return (
+
     <Space>
       <ConfigProvider
         theme={{
@@ -42,6 +58,7 @@ const Home = () => {
           <div>
             <div class="main">
               <div class="maintext">
+                <h1> {testMessage}</h1>
                 <h1>Discover and post food around Cornell's campus</h1>
                 <Link to="/Search"><Button type="primary" size="large">
                   Find Food
