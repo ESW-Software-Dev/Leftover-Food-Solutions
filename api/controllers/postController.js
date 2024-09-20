@@ -7,27 +7,28 @@ const Post = require('../models/post');
 // Handle Category create on POST.
 exports.upload_post = [
   // Validate and sanitize the name field.
-  body("name", "Item name must contain at least 3 characters")
-    .trim()
-    .isLength({ min: 3 })
-    .escape(),
+  // body("name", "Item name must contain at least 3 characters")
+  //   .trim()
+  //   .isLength({ min: 3 })
+  //   .escape(),
 
   // Process request after validation and sanitization.
   asyncHandler(async (req, res, next) => {
-    console.log("uploading category")
+    console.log("uploading post")
     // Extract the validation errors from a request.
-    const errors = validationResult(req);
+    // const errors = validationResult(req);
 
-    if (!errors.isEmpty()) {
-      // There are errors. Go back to home page
-      console.error('Errors:', errors);
-      res.status(500).json({ success: false, error: 'Failed to add item' });
-    }
+    // if (!errors.isEmpty()) {
+    //   // There are errors. Go back to home page
+    //   console.error('Errors:', errors);
+    //   res.status(500).json({ success: false, error: 'Failed to add item' });
+    // }
 
-
+    console.log(req.body)
     // Create a Post object with escaped and trimmed data.
     const post = new Post({
       name: req.body.name,
+      organization: req.body.organization,
       location: req.body.location,
       foodType: req.body.foodType,
       images: req.body.images,
@@ -35,22 +36,23 @@ exports.upload_post = [
     });
 
     // Check if Post with same name already exists.
-    const postExists = await Post.findOne({ name: req.body.name })
-      .collation({ locale: "en", strength: 2 })
-      .exec();
+    // const postExists = await Post.findOne({ name: req.body.name })
+    //   .collation({ locale: "en", strength: 2 })
+    //   .exec();
 
-    if (postExists) {
-      // Post exists, redirect to its detail page.
-      res.status(500).json({ success: false, error: 'Post already exists' });
-    } else {
+    // if (postExists) {
+    //   // Post exists, redirect to its detail page.
+    //   res.status(500).json({ success: false, error: 'Post already exists' });
+    // } else {
 
       // Save the new Post and redirect to its detail page.
-      await post.save();
+      await post.save().then(post => console.log('post saved:', post))
+      .catch(err => console.error('Error saving post:', err));;
 
-      console.log("uploaded category");
+      console.log("uploaded post");
       // Send the generated URL back to the client
       res.status(200).json({ success: true, url: post.url });
-    }
+    // }
   }),
 ];
 

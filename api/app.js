@@ -11,10 +11,11 @@ const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 const mongoDB = getConnectionString();
 
-main().catch((err) => console.log(err));
-async function main() {
-  await mongoose.connect("mongodb+srv://eswsoftwaredev:wYjDKUFROHcyc9Qt@cluster0.pjart.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
-}
+const uri = "mongodb+srv://eswsoftwaredev:wYjDKUFROHcyc9Qt@cluster0.pjart.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+
+mongoose.connect(uri)
+  .then(() => console.log('MongoDB Connected'))
+  .catch(err => console.error('MongoDB connection error:', err));
 
 var indexRouter = require('./routes/index');
 

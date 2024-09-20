@@ -14,7 +14,7 @@ router.get("/testAPI", function(req, res, next) {
 // POST ROUTES 
 
 // upload
-router.get('/upload-post', post_controller.upload_post);
+router.post('/upload-post', post_controller.upload_post);
 // delete
 router.delete('/delete-post', post_controller.delete_post);
 

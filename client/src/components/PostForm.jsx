@@ -7,19 +7,47 @@ const PostForm = ({ isOpen, onClose, addPost }) => {
   const [formData, setFormData] = useState({
     name: '',
     organization: '',
-    foodType: '',
-    time: '',
     location: '',
+    date: '',
+    foodType: '',
+    images: [''],
+    availability: true,
   });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  async function handleUpload () {
+    try {
+      console.log(formData)
+      const result = await fetch("http://localhost:9000/upload-post", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData),
+      });
+      console.log("HI")
+      const data = await result.json();
+      console.log(data);
+    } catch(error) {
+      console.error(error);
+    }
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    addPost(formData);
-    setFormData({ name: '', organization: '', foodType: '', time: '', location: '' });
+    handleUpload();
+    setFormData({ 
+      name: '',
+      organization: '',
+      location: '',
+      date: '',
+      foodType: '',
+      images: [''],
+      availability: true, 
+    });
     onClose();
   };
 
@@ -31,7 +59,7 @@ const PostForm = ({ isOpen, onClose, addPost }) => {
           <input type="text" name="name" placeholder="Name" value={formData.name} onChange={handleChange} />
           <input type="text" name="organization" placeholder="Organization" value={formData.organization} onChange={handleChange} />
           <input type="text" name="foodType" placeholder="Food Type" value={formData.foodType} onChange={handleChange} />
-          <input type="time" name="time" value={formData.time} onChange={handleChange} />
+          {/* <input type="time" name="time" value={formData.time} onChange={handleChange} /> */}
           <input type="text" name="location" placeholder="Location" value={formData.location} onChange={handleChange} />
           <button type="submit">Submit</button>
         </form>
