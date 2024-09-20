@@ -27,7 +27,11 @@ exports.upload_post = [
 
     // Create a Post object with escaped and trimmed data.
     const post = new Post({
-      name: req.body.name
+      name: req.body.name,
+      location: req.body.location,
+      foodType: req.body.foodType,
+      images: req.body.images,
+      availability: req.body.availability
     });
 
     // Check if Post with same name already exists.

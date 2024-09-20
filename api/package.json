@@ -10,8 +10,11 @@
     "cors": "^2.8.5",
     "debug": "~2.6.9",
     "express": "^4.19.2",
+    "express-async-handler": "^1.2.0",
+    "express-validator": "^7.2.0",
     "http-errors": "~1.6.3",
     "jade": "^0.29.0",
+    "mongoose": "^8.6.3",
     "morgan": "~1.9.1"
   }
 }
