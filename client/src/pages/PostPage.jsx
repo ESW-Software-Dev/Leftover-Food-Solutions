@@ -1,43 +1,32 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Logo from "../components/Logo.jsx";
-import AddPostSection from '../components/Posts/AddPostSection.jsx';
-import {useState} from 'react'
-import './PostPage.css'
-import DisplayPosts from '../components/DisplayPosts.jsx';
-export default function PostPage ({
-  posts,
-  addPost,
-  user
-})  {
-  const [isPostSectionOpen, setIsPostSectionOpen] = useState(false);
+import React, { useState } from 'react';
+import PostForm from '../components/PostForm';
 
-  function userPosts(){
-    return posts.filter((post) => post.netid == user.netid)
-  }
+const PostPage = ({ posts, addPost }) => {
+  const [isFormOpen, setIsFormOpen] = useState(false);
 
   return (
-    <>
-      <center className='page'>
-        <div className='horizontal'>
-        <h1>{userPosts().length > 0 ? 'Your Posts' : 'No Posts'}</h1>
-          <button 
-            className='addpost-toggle'
-            onClick={() => setIsPostSectionOpen(!isPostSectionOpen)}>
-              {isPostSectionOpen ? '-' : '+'}
-          </button>
-        </div>
+    <div>
+      <h1>Post Page</h1>
+      <button onClick={() => setIsFormOpen(true)}>Add New Post</button>
+      <PostForm isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} addPost={addPost} />
+      <div>
+        {posts.map((post, index) => (
+          <div key={index} className="post-item">
+            <h3>{post.foodType}</h3>
+            <p>By {post.name} ({post.organization})</p>
+            <p>Location: {post.location}</p>
+            <p>Time: {post.time}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
 
-        <AddPostSection
-          posts={posts}
-          AddPost={addPost}
-          isOpen = {isPostSectionOpen}
-          setPostSection={setIsPostSectionOpen}
-        />
-        <DisplayPosts posts={userPosts()}/>
-        
-      </center>
-    </>
-  )
-}
+export default PostPage;
+
+
+
+
+
 
