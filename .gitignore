@@ -1,0 +1,20 @@
+# client
+
+# dependencies
+/client/node_modules
+/client/package-lock.json
+
+# production
+/client/build
+
+
+# api
+/api/node_modules
+/api/package-lock.json
+
+# production
+/api/build
+/api/.env
+
+# misc
+.DS_Store
