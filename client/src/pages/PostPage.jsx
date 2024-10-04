@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PostForm from '../components/PostForm';
 
-const PostPage = ({ posts, addPost }) => {
+const PostPage = ({ posts, addPost, deletePost }) => {
   const [isFormOpen, setIsFormOpen] = useState(false);
 
   return (
@@ -16,6 +16,7 @@ const PostPage = ({ posts, addPost }) => {
             <p>By {post.name} ({post.organization})</p>
             <p>Location: {post.location}</p>
             <p>Time: {post.time}</p>
+            <button onClick={() => deletePost(index)}>Delete Post</button>
           </div>
         ))}
       </div>
@@ -24,9 +25,3 @@ const PostPage = ({ posts, addPost }) => {
 };
 
 export default PostPage;
-
-
-
-
-
-

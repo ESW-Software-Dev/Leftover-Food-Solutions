@@ -15,6 +15,10 @@ function App() {
     setPosts([...posts, newPost]);
   };
 
+  const deletePost = (indexToDelete) => {
+    setPosts(posts.filter((_, index) => index !== indexToDelete));
+  };
+
   return (
     <Router>
       <div className="app-container">
@@ -22,7 +26,7 @@ function App() {
         <main>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/post" element={<PostPage posts={posts} addPost={addPost} />} />
+            <Route path="/post" element={<PostPage posts={posts} addPost={addPost} deletePost={deletePost} />} />
             <Route path="/search" element={<SearchPage posts={posts} />} />
             <Route path="/about" element={<AboutPage />} />
           </Routes>
@@ -34,7 +38,3 @@ function App() {
 }
 
 export default App;
-
-
-
-

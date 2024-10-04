@@ -42,7 +42,3 @@ const PostForm = ({ isOpen, onClose, addPost }) => {
 };
 
 export default PostForm;
-
-
-
-
