@@ -4,6 +4,18 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require("cors");
+var getConnectionString = require("./config/mongodbConfig");
+
+// set up mongoose connection
+const mongoose = require("mongoose");
+mongoose.set("strictQuery", false);
+const mongoDB = getConnectionString();
+
+const uri = "mongodb+srv://eswsoftwaredev:wYjDKUFROHcyc9Qt@cluster0.pjart.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+
+mongoose.connect(uri)
+  .then(() => console.log('MongoDB Connected'))
+  .catch(err => console.error('MongoDB connection error:', err));
 
 var indexRouter = require('./routes/index');
 
