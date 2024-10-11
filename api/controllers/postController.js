@@ -56,6 +56,20 @@ exports.upload_post = [
   }),
 ];
 
+// get all posts
+exports.get_posts = asyncHandler(async (req, res, next) => {
+  try {
+    const posts = await Post.find();  // Use plural to indicate multiple posts
+    if (posts.length === 0) {
+      return res.status(404).json({ success: false, error: 'No posts found' });
+    }
+    res.status(200).json({ success: true, data: posts });
+  } catch (error) {
+    console.error('Error fetching posts:', error);
+    res.status(500).json({ success: false, error: 'Failed to retrieve posts' });
+  }
+});
+
 // Read a single post by ID
 exports.read_post_id = asyncHandler(async (req, res, next) => {
   try {

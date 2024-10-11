@@ -13,6 +13,8 @@ router.get("/testAPI", function(req, res, next) {
 
 // POST ROUTES 
 
+//get all posts
+router.get('/get-all-posts', post_controller.get_posts);
 // upload
 router.post('/upload-post', post_controller.upload_post);
 // delete
