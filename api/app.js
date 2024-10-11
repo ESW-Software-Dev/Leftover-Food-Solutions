@@ -11,9 +11,7 @@ const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
 const mongoDB = getConnectionString();
 
-const uri = "mongodb+srv://eswsoftwaredev:wYjDKUFROHcyc9Qt@cluster0.pjart.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-
-mongoose.connect(uri)
+mongoose.connect(mongoDB)
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.error('MongoDB connection error:', err));
 

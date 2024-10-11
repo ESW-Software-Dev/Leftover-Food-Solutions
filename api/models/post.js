@@ -9,7 +9,7 @@ const PostSchema = new Schema({
     date: {type: Date, default: new Date()},
     foodType: {type: String},
     updated: {type: Date, default: new Date()},
-    images: {imgurl: {type: String}},
+    imageURL: {type: String},
     availability: {type: Boolean}
 })
 

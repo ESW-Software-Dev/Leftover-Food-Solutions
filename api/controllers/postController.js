@@ -3,10 +3,10 @@ const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 
 const Post = require('../models/post');
-
+const cloudinary = require('../config/cloudinaryConfig');
 // Handle Category create on POST.
 exports.upload_post = [
-  // Validate and sanitize the name field.
+  // Validate and sanitize the name field (uncomment if needed)
   // body("name", "Item name must contain at least 3 characters")
   //   .trim()
   //   .isLength({ min: 3 })
@@ -14,55 +14,75 @@ exports.upload_post = [
 
   // Process request after validation and sanitization.
   asyncHandler(async (req, res, next) => {
-    console.log("uploading post")
-    // Extract the validation errors from a request.
-    // const errors = validationResult(req);
+    console.log("uploading post");
 
+    // Extract validation errors if any (uncomment if needed)
+    // const errors = validationResult(req);
     // if (!errors.isEmpty()) {
-    //   // There are errors. Go back to home page
     //   console.error('Errors:', errors);
-    //   res.status(500).json({ success: false, error: 'Failed to add item' });
+    //   return res.status(500).json({ success: false, error: 'Failed to add item' });
     // }
 
-    console.log(req.body)
+    let imgURL = '';
+    if (req.file) {
+      console.log(req.file);
+      try {
+        // Upload to Cloudinary
+        const result = await new Promise((resolve, reject) => {
+          cloudinary.uploader.upload_stream(
+            { resource_type: 'image' }, // Ensure this is set to 'image'
+            (error, result) => {
+              if (error) {
+                return reject(error);
+              }
+              resolve(result);
+            }
+          ).end(req.file.buffer);
+        });
+        console.log(result.secure_url)
+        imgURL = result.secure_url;
+      } catch (error) {
+        console.error('Error uploading to Cloudinary:', error);
+        return res.status(500).json({ success: false, message: 'Error uploading image' });
+      }
+    }
+    
     // Create a Post object with escaped and trimmed data.
     const post = new Post({
       name: req.body.name,
       organization: req.body.organization,
       location: req.body.location,
       foodType: req.body.foodType,
-      images: req.body.images,
+      imageURL: imgURL,
       availability: req.body.availability
     });
 
-    // Check if Post with same name already exists.
-    // const postExists = await Post.findOne({ name: req.body.name })
-    //   .collation({ locale: "en", strength: 2 })
-    //   .exec();
-
-    // if (postExists) {
-    //   // Post exists, redirect to its detail page.
-    //   res.status(500).json({ success: false, error: 'Post already exists' });
-    // } else {
-
-      // Save the new Post and redirect to its detail page.
-      await post.save().then(post => console.log('post saved:', post))
-      .catch(err => console.error('Error saving post:', err));;
-
+    // Save the new Post
+    try {
+      await post.save();
+      console.log('post saved:', post);
       console.log("uploaded post");
       // Send the generated URL back to the client
-      res.status(200).json({ success: true, url: post.url });
-    // }
+      res.status(200).json({ success: true, url: imgURL }); // Corrected here
+    } catch (err) {
+      console.error('Error saving post:', err);
+      res.status(500).json({ success: false, message: 'Error saving post' });
+    }
   }),
 ];
+
 
 // get all posts
 exports.get_posts = asyncHandler(async (req, res, next) => {
   try {
     const posts = await Post.find();  // Use plural to indicate multiple posts
+    posts.map((post) => {
+      console.log(post.imageURL);
+    })
     if (posts.length === 0) {
       return res.status(404).json({ success: false, error: 'No posts found' });
     }
+   
     res.status(200).json({ success: true, data: posts });
   } catch (error) {
     console.error('Error fetching posts:', error);

@@ -1,3 +1,4 @@
+require('dotenv').config();
 const getConnectionString = () => {
     return process.env.MONGO_URI;
 };
