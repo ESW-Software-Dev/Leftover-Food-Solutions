@@ -123,17 +123,20 @@ exports.update_post = [
 // Handle Post delete on DELETE
 exports.delete_post = asyncHandler(async (req, res, next) => {
   console.log("Post delete");
+  console.log(req.params.id)
   try {
-    const post = await Post.findById(req.params.id);
+    const postId = req.params.id;
+
+    const post = await Post.findById(postId);
     if (!post) {
       return res.status(404).send('Item not found');
     }
+
     // Delete the item from the database
-    await Post.findByIdAndDelete(req.params.id);
-    res.status(200).send({ success: true });
+    const deletedPost = await Post.findByIdAndDelete(postId);
+    res.status(200).send({ success: true, data: deletedPost });
   } catch (error) {
     console.error('Error deleting item:', error);
-    res.status(500).send({ success: false });
+    res.status(500).send({ success: false, error: 'Failed to delete post' });
   }
 });
-

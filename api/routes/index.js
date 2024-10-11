@@ -18,6 +18,6 @@ router.get('/get-all-posts', post_controller.get_posts);
 // upload
 router.post('/upload-post', post_controller.upload_post);
 // delete
-router.delete('/delete-post', post_controller.delete_post);
+router.delete('/delete-post/:id', post_controller.delete_post);
 
 module.exports = router;
