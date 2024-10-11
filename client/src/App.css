@@ -193,28 +193,56 @@ input {
   color: #666;
 }
 
-/*Also used in SearchPage */
+/* SearchPage Post Styles */
 .post-item {
-  background-color: #fdd;
-  padding: 15px;
-  border-radius: 5px;
-  margin: 15px 0;
-  border: 2px solid #BA2626;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #fff; /* Keep white for contrast */
+  padding: 20px; /* Increased padding for better spacing */
+  border-radius: 10px; /* Slightly rounded corners */
+  margin: 20px 0; /* More margin to separate posts */
+  border: 1px solid #D12B2B; /* A brighter, more vivid red for the border */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Larger shadow for depth */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
+}
+
+.post-item:hover {
+  transform: translateY(-5px); /* Slight lift on hover */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
 }
 
 .post-item h3 {
   margin-bottom: 10px;
-  font-size: 18px;
-  color: #333;
+  font-size: 20px; /* Larger font size for the title */
+  color: #D12B2B; /* Use a brighter red for titles */
+  font-weight: 600; /* Bold title */
+  text-transform: capitalize; /* Capitalize titles */
 }
 
 .post-item p {
-  margin-bottom: 5px;
-  font-size: 14px;
-  color: #666;
+  margin-bottom: 10px;
+  font-size: 15px; /* Slightly larger font for the description */
+  color: #555; /* Dark gray for better contrast */
+  line-height: 1.5; /* Improved readability */
 }
 
+.post-item p span {
+  font-weight: 600;
+  color: #C72B2B; /* A slightly lighter red for labels like "Location" and "Time" */
+}
+
+
+/* Optional: Styling for search results container */
+.search-results {
+  display: grid; /* Use grid layout */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive columns */
+  gap: 20px; /* Space between grid items */
+}
+
+/* In App.css or your component CSS file */
+.search-page-wrapper {
+  padding: 20px; /* Add padding to the wrapper */
+  max-width: 1200px; /* Optional: Limit max width for larger screens */
+  margin: 0 auto; /* Center the container */
+}
 
 /* POST FORM */
 .modal-overlay {
