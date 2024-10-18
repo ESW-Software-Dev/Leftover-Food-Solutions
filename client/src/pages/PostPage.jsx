@@ -1,3 +1,4 @@
+// PostPage.jsx
 import React, { useState } from 'react';
 import PostForm from '../components/PostForm';
 
