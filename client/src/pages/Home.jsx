@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../App.css';
 
-const Home = ({ deletePost }) => {
+const Home = () => {
   const [posts, setPosts] = useState([]); // State to hold posts
   const [loading, setLoading] = useState(true); // Loading state
   const [error, setError] = useState(null); // Error state
