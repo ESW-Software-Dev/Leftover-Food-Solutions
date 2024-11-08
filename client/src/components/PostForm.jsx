@@ -9,7 +9,10 @@ const PostForm = ({ isOpen, onClose, addPost }) => {
     organization: '',
     location: '',
     date: '',
+    time: '',
     foodType: '',
+    servings: 0,
+    images: [''],
     image: null, // Changed from images to image
     availability: true,
   });
@@ -46,6 +49,10 @@ const PostForm = ({ isOpen, onClose, addPost }) => {
     // Validate foodType (required)
     if (!formData.foodType.trim()) {
       newErrors.foodType = 'Food type is required';
+    }
+
+    if (formData.servings == 0) {
+      newErrors.foodType = 'Number of servings needs to be greater than 0'
     }
 
     // Validate date (must be a valid date in the future)
@@ -108,6 +115,24 @@ const PostForm = ({ isOpen, onClose, addPost }) => {
     }
   };
 
+  const inputStyle = {
+    marginBottom: '10px',
+    padding: '10px',
+    width: '100%',
+  };
+
+  const buttonStyle = {
+    padding: '10px 20px',
+    margin: '5px',
+    cursor: 'pointer',
+  };
+
+  const buttonContainerStyle = {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginTop: '10px',
+  };
+
   return (
     <div className="modal-overlay">
       <div className="modal-content">
@@ -119,6 +144,7 @@ const PostForm = ({ isOpen, onClose, addPost }) => {
             placeholder="Name"
             value={formData.name}
             onChange={handleChange}
+            style={inputStyle}
           />
           {errors.name && <span className="error">{errors.name}</span>}
 
@@ -128,6 +154,8 @@ const PostForm = ({ isOpen, onClose, addPost }) => {
             placeholder="Organization"
             value={formData.organization}
             onChange={handleChange}
+            style={inputStyle}
+
           />
           {errors.organization && <span className="error">{errors.organization}</span>}
 
@@ -137,6 +165,8 @@ const PostForm = ({ isOpen, onClose, addPost }) => {
             placeholder="Location"
             value={formData.location}
             onChange={handleChange}
+            style={inputStyle}
+
           />
           {errors.location && <span className="error">{errors.location}</span>}
 
@@ -145,8 +175,20 @@ const PostForm = ({ isOpen, onClose, addPost }) => {
             name="date"
             value={formData.date}
             onChange={handleChange}
+            style={inputStyle}
+
           />
           {errors.date && <span className="error">{errors.date}</span>}
+
+          <input
+            type="time"
+            name="time"
+            placeholder={formData.time}
+            onChange={handleChange}
+            style={inputStyle}
+
+          />
+          {errors.time && <span className='error'>{errors.time}</span>}
 
           <input
             type="text"
@@ -154,6 +196,8 @@ const PostForm = ({ isOpen, onClose, addPost }) => {
             placeholder="Food Type"
             value={formData.foodType}
             onChange={handleChange}
+            style={inputStyle}
+
           />
           {errors.foodType && <span className="error">{errors.foodType}</span>}
 
@@ -167,7 +211,6 @@ const PostForm = ({ isOpen, onClose, addPost }) => {
 
           <button type="submit">Submit</button>
         </form>
-        <button className="close-button" onClick={onClose}>Close</button>
       </div>
     </div>
   );
