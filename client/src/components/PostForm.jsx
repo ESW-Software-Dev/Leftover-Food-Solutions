@@ -10,14 +10,19 @@ const PostForm = ({ isOpen, onClose, addPost }) => {
     location: '',
     date: '',
     foodType: '',
-    images: [''],
+    image: null, // Changed from images to image
     availability: true,
   });
 
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value, type } = e.target;
+    if (type === 'file') {
+      setFormData({ ...formData, image: e.target.files[0] }); // Set the image file
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const validate = () => {
@@ -52,21 +57,34 @@ const PostForm = ({ isOpen, onClose, addPost }) => {
       newErrors.date = 'Please enter a valid future date';
     }
 
+    // Validate image (required)
+    if (!formData.image) {
+      newErrors.image = 'Image is required';
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   async function handleUpload() {
     try {
+      const formDataToSend = new FormData();
+      formDataToSend.append('name', formData.name);
+      formDataToSend.append('organization', formData.organization);
+      formDataToSend.append('location', formData.location);
+      formDataToSend.append('date', formData.date);
+      formDataToSend.append('foodType', formData.foodType);
+      formDataToSend.append('image', formData.image); // Append the image file
+
       const result = await fetch("http://localhost:9000/upload-post", {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+        body: formDataToSend,
       });
       const data = await result.json();
       console.log(data);
+      if (data.success) {
+        addPost(data.post); // Call the addPost function to update state in the parent component
+      }
     } catch (error) {
       console.error(error);
     }
@@ -83,7 +101,7 @@ const PostForm = ({ isOpen, onClose, addPost }) => {
         location: '',
         date: '',
         foodType: '',
-        images: [''],
+        image: null, // Reset image
         availability: true,
       });
       onClose();
@@ -138,6 +156,14 @@ const PostForm = ({ isOpen, onClose, addPost }) => {
             onChange={handleChange}
           />
           {errors.foodType && <span className="error">{errors.foodType}</span>}
+
+          <input
+            type="file"
+            name="image"
+            accept="image/*"
+            onChange={handleChange}
+          />
+          {errors.image && <span className="error">{errors.image}</span>}
 
           <button type="submit">Submit</button>
         </form>

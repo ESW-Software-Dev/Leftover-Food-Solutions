@@ -125,6 +125,23 @@ input {
   margin-bottom: 40px;
 }
 
+.user-posts-container {
+  background-color: #f9f9f9; /* Light background */
+  padding: 20px;
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  margin-top: 20px;
+  width: 30%; /* Reduced width to 60% of the parent container */
+  float: left; /* Align the posts container to the left */
+  margin-right: 20px; /* Add space to the right */
+}
+
+.user-posts-container h2 {
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 1.8rem;
+}
+
 /* ABOUT PAGE */
 .about-page {
   max-width: 1000px;

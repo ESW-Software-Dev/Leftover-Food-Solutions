@@ -106,6 +106,16 @@ const SearchPage = () => {
             filteredPosts.map((post, index) => (
               <div key={index} className="post-item">
                 <h3>{post.foodType}</h3>
+                <img
+                  src={post.imageURL}
+                  alt={post.foodType}
+                  style={{
+                    width: '50%', // Adjust to fit the container
+                    height: 'auto', // Maintain aspect ratio
+                    borderRadius: '10px', // Optional: rounded corners
+                    marginBottom: '10px', // Space below the image
+                  }}
+                />
                 <p>By {post.name} ({post.organization})</p>
                 <p>Location: {post.location}</p>
                 <p>Time: {post.time}</p>

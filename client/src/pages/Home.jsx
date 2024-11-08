@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import '../App.css';
 
-const Home = ({ deletePost }) => {
+const Home = () => {
   const [posts, setPosts] = useState([]); // State to hold posts
   const [loading, setLoading] = useState(true); // Loading state
   const [error, setError] = useState(null); // Error state
@@ -28,6 +28,24 @@ const Home = ({ deletePost }) => {
     fetchPosts();
   }, []); // Runs only once after the component mounts
 
+  // Function to delete a post
+  const deletePost = async (postId) => {
+    try {
+      const response = await fetch(`http://localhost:9000/delete-post/${postId}`, {
+        method: 'DELETE',
+      });
+      const result = await response.json();
+      if (result.success) {
+        // Update the posts state to remove the deleted post
+        setPosts((prevPosts) => prevPosts.filter((post) => post._id !== postId));
+      } else {
+        setError('Failed to delete post');
+      }
+    } catch (error) {
+      setError('An error occurred while deleting the post');
+    }
+  };
+
   return (
     <div className="home-page">
       <h1>Welcome to Leftover Food Solutions</h1>
@@ -39,21 +57,33 @@ const Home = ({ deletePost }) => {
       {/* Conditional rendering for error state */}
       {error && <div>{error}</div>}
 
-      <h2>Your Posts</h2>
-      <div>
-        {posts.length > 0 ? (
-          posts.map((post, index) => (
-            <div key={index} className="post-item">
-              <h3>{post.foodType}</h3>
-              <p>By {post.name} ({post.organization})</p>
-              <p>Location: {post.location}</p>
-              <p>Time: {post.time}</p>
-              <button onClick={() => deletePost(index)}>Delete Post</button>
-            </div>
-          ))
-        ) : (
-          !loading && <p>No posts available.</p>
-        )}
+      <div className="user-posts-container">
+        <h2>Your Posts</h2>
+        <div>
+          {posts.length > 0 ? (
+            posts.map((post, index) => (
+              <div key={index} className="post-item">
+                <h3>{post.foodType}</h3>
+                <img
+                    src={post.imageURL}
+                    alt={post.foodType}
+                    style={{
+                      width: '50%', // Adjust to fit the container
+                      height: 'auto', // Maintain aspect ratio
+                      borderRadius: '10px', // Optional: rounded corners
+                      marginBottom: '10px', // Space below the image
+                    }}
+                  />
+                <p>By {post.name} ({post.organization})</p>
+                <p>Location: {post.location}</p>
+                <p>Time: {post.time}</p>
+                <button onClick={() => deletePost(post._id)}>Delete Post</button>
+              </div>
+            ))
+          ) : (
+            !loading && <p>No posts available.</p>
+          )}
+        </div>
       </div>
     </div>
   );
