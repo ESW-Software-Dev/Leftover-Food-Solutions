@@ -202,11 +202,22 @@ const PostForm = ({ isOpen, onClose, addPost }) => {
           {errors.foodType && <span className="error">{errors.foodType}</span>}
 
           <input
+            type="number"
+            name="servings"
+            placeholder="0"
+            value={formData.servings}
+            onChange={handleChange}
+            style={inputStyle}
+          />
+          {errors.servings && <span className="error">{errors.servings}</span>}
+
+          <input
             type="file"
             name="image"
             accept="image/*"
             onChange={handleChange}
           />
+          
           {errors.image && <span className="error">{errors.image}</span>}
 
           <button type="submit">Submit</button>

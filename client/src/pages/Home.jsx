@@ -65,7 +65,7 @@ const Home = () => {
               <p>By {post.name} ({post.organization})</p>
               <p>Location: {post.location}</p>
               <p>Time: {post.time}</p>
-              <button onClick={() => deletePost(index)}>Delete Post</button>
+              <button onClick={() => deletePost(post._id)}>Delete Post</button>
             </div>
           ))
         ) : (
