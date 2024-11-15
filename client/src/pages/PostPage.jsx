@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PostForm from '../components/PostForm';
 
-const PostPage = ({  addPost, deletePost }) => {
+const PostPage = ({ addPost, deletePost }) => {
   const [isFormOpen, setIsFormOpen] = useState(false);
 
   return (

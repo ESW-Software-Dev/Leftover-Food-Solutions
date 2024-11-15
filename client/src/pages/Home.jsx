@@ -5,6 +5,7 @@ const Home = () => {
   const [posts, setPosts] = useState([]); // State to hold posts
   const [loading, setLoading] = useState(true); // Loading state
   const [error, setError] = useState(null); // Error state
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   // Fetch posts from the API when the component mounts
   useEffect(() => {
@@ -49,6 +50,26 @@ const Home = () => {
     <div className="home-container">
       <h1>Welcome to Leftover Food Solutions</h1>
       <p>Find and share leftover food around campus!</p>
+
+      {/* User Login Button */}
+      <button onClick={() => setIsLoginOpen(true)}>User Login</button>
+
+      {/* Conditional rendering for login form or modal (you can add your login form here) */}
+      {isLoginOpen && (
+        <div className="login-form">
+          <h2>Login Form</h2>
+          <form>
+            <label>NetID:</label>
+            <input type="netid" placeholder="Enter your netid" required />
+            <label>Password:</label>
+            <input type="password" placeholder="Enter your password" required />
+            <div className="form-buttons">
+              <button type="submit">Login</button>
+              <button type="button" onClick={() => setIsLoginOpen(false)}>Close</button>
+            </div>
+          </form>
+        </div>
+      )}
 
       {/* Conditional rendering for loading state */}
       {loading && <p>Loading posts...</p>}

@@ -130,14 +130,20 @@ input {
 }
 
 .user-posts-container {
-  background-color: #f9f9f9; /* Light background */
+  background-color: #f9f9f9;
+  /* Light background */
   padding: 20px;
-  border-radius: 10px; /* Rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  border-radius: 10px;
+  /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Subtle shadow */
   margin-top: 20px;
-  width: 30%; /* Reduced width to 60% of the parent container */
-  float: left; /* Align the posts container to the left */
-  margin-right: 20px; /* Add space to the right */
+  width: 30%;
+  /* Reduced width to 60% of the parent container */
+  float: left;
+  /* Align the posts container to the left */
+  margin-right: 20px;
+  /* Add space to the right */
 }
 
 .user-posts-container h2 {
@@ -310,4 +316,43 @@ input {
 
 .delete-button:hover {
   background-color: #C72B2B;
+}
+
+/*Login Button*/
+.login-form {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-form form {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.login-form button {
+  width: 100%;
+  padding: 10px;
+  background-color: blue;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.login-form button[type="button"] {
+  background-color: red;
 }
