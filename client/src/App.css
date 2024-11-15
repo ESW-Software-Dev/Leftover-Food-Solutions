@@ -326,6 +326,7 @@ input {
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
+  /* semi-transparent background */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -344,6 +345,14 @@ input {
   margin: 10px 0;
 }
 
+.login-form .form-buttons {
+  display: flex;
+  flex-direction: column;
+  /* Stack the buttons vertically */
+  gap: 10px;
+  /* Adds space between the buttons */
+}
+
 .login-form button {
   width: 100%;
   padding: 10px;
@@ -352,6 +361,11 @@ input {
   border: none;
   border-radius: 5px;
 }
+
+.login-form button[type="button"] {
+  background-color: red;
+}
+
 
 .login-form button[type="button"] {
   background-color: red;

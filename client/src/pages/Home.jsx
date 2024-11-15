@@ -65,6 +65,7 @@ const Home = () => {
             <input type="password" placeholder="Enter your password" required />
             <div className="form-buttons">
               <button type="submit">Login</button>
+              <button type="submit" onClick={() => setIsLoginOpen(false)}>Create User</button>
               <button type="button" onClick={() => setIsLoginOpen(false)}>Close</button>
             </div>
           </form>
