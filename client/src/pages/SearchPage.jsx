@@ -38,17 +38,30 @@ const SearchPage = () => {
 
   // If loading, show a loading message
   if (loading) {
-    return <div>Loading posts...</div>;
+    return (
+      <div className="search-page">
+        <h1 className="page-title">Search Food</h1>
+        <div>Loading posts...</div>
+      </div>
+    );
   }
 
   // If there's an error, show an error message
   if (error) {
-    return <div>{error}</div>;
+    return (
+      <div className="search-page">
+        <h1 className="page-title">Search Food</h1>
+        <div>{error}</div>
+      </div>
+    );
   }
 
   return (
     <div className="search-page">
-      <h1>Search for Food</h1>
+      {/* Title always visible */}
+      <h1 className="page-title">Search Food</h1>
+
+      {/* Search input */}
       <input
         type="text"
         placeholder="Search by food type or location..."
@@ -57,21 +70,22 @@ const SearchPage = () => {
         className="search-bar"
       />
 
+      {/* Search results */}
       <div className="search-results">
         {filteredPosts.length > 0 ? (
           filteredPosts.map((post, index) => (
             <div key={index} className="post-item">
               <h3>{post.foodType}</h3>
-                <img
-                  src={post.imageURL}
-                  alt={post.foodType}
-                  style={{
-                    width: '50%', // Adjust to fit the container
-                    height: 'auto', // Maintain aspect ratio
-                    borderRadius: '10px', // Optional: rounded corners
-                    marginBottom: '10px', // Space below the image
-                  }}
-                />
+              <img
+                src={post.imageURL}
+                alt={post.foodType}
+                style={{
+                  width: '50%',
+                  height: 'auto',
+                  borderRadius: '10px',
+                  marginBottom: '10px',
+                }}
+              />
               <p>By {post.name} ({post.organization})</p>
               <p>Location: {post.location}</p>
               <p>Time: {post.time}</p>
@@ -86,6 +100,8 @@ const SearchPage = () => {
 };
 
 export default SearchPage;
+
+
 
 
 

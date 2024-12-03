@@ -2,96 +2,72 @@ import React, { useState, useEffect } from 'react';
 import '../App.css';
 
 const Home = () => {
-  const [posts, setPosts] = useState([]); // State to hold posts
-  const [loading, setLoading] = useState(true); // Loading state
-  const [error, setError] = useState(null); // Error state
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Fetch posts from the API when the component mounts
+  // Fetch posts
   useEffect(() => {
     const fetchPosts = async () => {
       try {
         const response = await fetch('http://localhost:9000/get-all-posts');
         const result = await response.json();
         if (result.success) {
-          setPosts(result.data); // Set the posts from API response
+          setPosts(result.data);
         } else {
           setError('No posts found');
         }
       } catch (err) {
         setError('Failed to fetch posts');
       } finally {
-        setLoading(false); // Stop loading whether success or error
+        setLoading(false);
       }
     };
 
     fetchPosts();
-  }, []); // Runs only once after the component mounts
-
-  // Function to delete a post
-  const deletePost = async (postId) => {
-    try {
-      const response = await fetch(`http://localhost:9000/delete-post/${postId}`, {
-        method: 'DELETE',
-      });
-      const result = await response.json();
-      if (result.success) {
-        // Update the posts state to remove the deleted post
-        setPosts((prevPosts) => prevPosts.filter((post) => post._id !== postId));
-      } else {
-        setError('Failed to delete post');
-      }
-    } catch (error) {
-      setError('An error occurred while deleting the post');
-    }
-  };
+  }, []);
 
   return (
     <div className="home-container">
-      <h1>Welcome to Leftover Food Solutions</h1>
-      <p>Find and share leftover food around campus!</p>
+      {/* Dynamic Typing Section */}
+      <div className="welcome-section">
+        <h1 className="dynamic-text">
+          Welcome to <span className="highlight">Leftover Food Solutions</span>
+        </h1>
+        <p className="blurb">
+          Discover and share leftover food across campus! Below, you'll find your recent posts. Use the tabs above to add or search for food and join us in reducing food waste. Learn more about us on the About Us page.
+        </p>
+      </div>
 
-      {/* User Login Button */}
-      <button onClick={() => setIsLoginOpen(true)}>User Login</button>
-
-      {/* Conditional rendering for login form or modal (you can add your login form here) */}
-      {isLoginOpen && (
-        <div className="login-form">
-          <h2>Login Form</h2>
-          <form>
-            <label>NetID:</label>
-            <input type="netid" placeholder="Enter your netid" required />
-            <label>Password:</label>
-            <input type="password" placeholder="Enter your password" required />
-            <div className="form-buttons">
-              <button type="submit">Login</button>
-              <button type="submit" onClick={() => setIsLoginOpen(false)}>Create User</button>
-              <button type="button" onClick={() => setIsLoginOpen(false)}>Close</button>
-            </div>
-          </form>
-        </div>
-      )}
-
-      {/* Conditional rendering for loading state */}
-      {loading && <p>Loading posts...</p>}
-
-      {/* Conditional rendering for error state */}
-      {error && <div>{error}</div>}
-
-      <h2>Your Posts</h2>
-      <div>
-        {posts.length > 0 ? (
-          posts.map((post, index) => (
-            <div key={index} className="post-item">
-              <h3>{post.foodType}</h3>
-              <p>By {post.name} ({post.organization})</p>
-              <p>Location: {post.location}</p>
-              <p>Time: {post.time}</p>
-              <button onClick={() => deletePost(post._id)}>Delete Post</button>
-            </div>
-          ))
+      {/* Posts Section */}
+      <div className="posts-section">
+        <h2>Your Posts</h2>
+        {loading ? (
+          <p>Loading posts...</p>
+        ) : error ? (
+          <p className="error-message">{error}</p>
+        ) : posts.length > 0 ? (
+          <div className="posts-grid">
+            {posts.map((post, index) => (
+              <div key={index} className="post-card">
+                <h3>{post.foodType}</h3>
+                <p>
+                  <strong>By:</strong> {post.name} ({post.organization})
+                </p>
+                <p>
+                  <strong>Location:</strong> {post.location}
+                </p>
+                <p>
+                  <strong>Time:</strong> {post.time}
+                </p>
+                <button className="delete-button" onClick={() => deletePost(post._id)}>
+                  Delete Post
+                </button>
+              </div>
+            ))}
+          </div>
         ) : (
-          !loading && <p>No posts available.</p>
+          <p>No posts available.</p>
         )}
       </div>
     </div>
@@ -99,7 +75,4 @@ const Home = () => {
 };
 
 export default Home;
-
-
-
 

@@ -24,8 +24,12 @@ const About = () => {
         <div className="team-members">
           {['TM1', 'TM2', 'TM3', 'TM4'].map((image, index) => (
             <div className="team-member" key={index}>
-              <img src={`src/pages/AboutPage/Images/${image}.jpg`} alt={`Team Member ${index + 1}`} />
-              <p>{['Nadia Wong, CS \'24', 'Ethan Lin, CS \'26', 'Sennet Senadheera, CS \'26', 'Krishna Patel, CS \'26'][index]}</p>
+              <img
+                src={`src/pages/AboutPage/Images/${image}.jpg`}
+                alt={`Team Member ${index + 1}`}
+                className="team-image"
+              />
+              <p className="team-name">{['Nadia Wong', 'Ethan Lin', 'Sennet Senadheera', 'Krishna Patel'][index]}</p>
             </div>
           ))}
         </div>
@@ -35,3 +39,5 @@ const About = () => {
 };
 
 export default About;
+
+

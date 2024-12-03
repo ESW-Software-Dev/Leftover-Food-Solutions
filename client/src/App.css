@@ -1,3 +1,6 @@
+/* Google Font import */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;600&display=swap');
+
 /* GENERAL STYLES */
 * {
   margin: 0;
@@ -8,19 +11,19 @@
 body {
   font-family: Arial, sans-serif;
   background-color: #f0f0f0;
-  padding-top: 60px;
+  padding-top: 70px;
+  /* Adjust this to avoid navbar overlap */
   font-size: 16px;
+}
+
+.about-page {
+  padding: 20px;
+  margin-top: 70px;
+  /* Adjusted margin to ensure content isn't hidden */
 }
 
 .app-container {
   text-align: center;
-}
-
-.home-container,
-.post-page-container,
-.about-page,
-.search-food-container {
-  padding: 20px;
 }
 
 h1,
@@ -68,28 +71,69 @@ input {
 
 /* NAVIGATION BAR */
 .navbar {
-  background-color: #BA2626;
-  padding: 10px;
+  background: linear-gradient(45deg, #BA2626, #D12B2B);
+  /* Gradient background */
+  padding: 10px 20px;
+  /* Padding around the navbar */
   position: fixed;
   width: 100%;
   top: 0;
   z-index: 1000;
+  display: flex;
+  justify-content: center;
+  /* Center the navbar items */
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Subtle shadow */
 }
 
 .navbar a {
   color: white;
-  padding: 10px 20px;
   text-decoration: none;
-  font-weight: bold;
-  transition: background-color 0.3s;
+  font-weight: 600;
+  font-family: 'Lato', sans-serif;
+  font-size: 16px;
+  padding: 10px 15px;
+  /* Reduced padding for closer spacing */
+  margin-right: 10px;
+  /* Reduced margin between links */
+  border-radius: 5px;
+  transition: all 0.3s ease;
 }
 
 .navbar a:hover {
-  background-color: darkred;
+  background-color: rgba(255, 255, 255, 0.2);
+  /* Light hover effect */
+  transform: scale(1.05);
 }
 
 .navbar a.active {
-  background-color: #04BEFE;
+  background-color: #BA2626;
+  /* Active link highlight in red */
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
+  transform: scale(1.05);
+  /* Active page hover effect */
+}
+
+.navbar a:active {
+  transform: translateY(2px);
+  /* Click effect */
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .navbar a {
+    margin: 8px 0;
+    /* Adjust space on smaller screens */
+    padding: 12px 20px;
+  }
 }
 
 /* FOOTER */
@@ -108,152 +152,292 @@ input {
 
 /* HOME PAGE */
 .home-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  /* Changed from height to min-height for better layout */
-  text-align: center;
-  background-color: #f0f0f0;
-  /* Keep the background light gray */
-}
-
-.home-container h1 {
-  font-size: 48px;
-  margin-bottom: 20px;
-}
-
-.home-container .blurb {
-  font-size: 24px;
-  margin-bottom: 40px;
-}
-
-.user-posts-container {
+  font-family: 'Roboto', sans-serif;
+  padding: 20px;
   background-color: #f9f9f9;
   /* Light background */
+  text-align: center;
+}
+
+.welcome-section {
+  padding: 60px 20px;
+  background-color: #fff;
+  border-bottom: 4px solid #BA2626;
+  /* Red border to match navbar */
+}
+
+.dynamic-text {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+  overflow: hidden;
+  /* Prevents text from overflowing */
+  white-space: nowrap;
+  /* Keeps text in one line */
+  display: inline-block;
+  /* Make the text block inline for centering */
+  border-right: 4px solid #BA2626;
+  /* Create a cursor effect */
+  width: 0;
+  /* Start with no width */
+  animation: typing 4s steps(30, end) forwards, blink-caret 0.75s step-end infinite;
+}
+
+.dynamic-text .highlight {
+  color: #BA2626;
+  /* Highlight "Leftover Food Solutions" in red */
+}
+
+.blurb {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #555;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 10px;
+  background-color: rgba(255, 205, 205, 0.5);
+  /* Light red background for emphasis */
+  border-radius: 8px;
+}
+
+/* Posts Section */
+.posts-section {
+  padding: 40px 20px;
+}
+
+.posts-section h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.post-card {
+  background-color: #fff;
   padding: 20px;
   border-radius: 10px;
-  /* Rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  /* Subtle shadow */
-  margin-top: 20px;
-  width: 30%;
-  /* Reduced width to 60% of the parent container */
-  float: left;
-  /* Align the posts container to the left */
-  margin-right: 20px;
-  /* Add space to the right */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
 }
 
-.user-posts-container h2 {
-  margin-bottom: 20px;
-  color: #333;
-  font-size: 1.8rem;
+.post-card:hover {
+  transform: scale(1.05);
 }
 
-/* ABOUT PAGE */
+.post-card h3 {
+  color: #BA2626;
+  /* Red title for posts */
+  font-size: 1.5rem;
+}
+
+.delete-button {
+  background-color: #D12B2B;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  background-color: #C72B2B;
+}
+
+/* Typing Animation */
+@keyframes typing {
+  0% {
+    width: 0;
+  }
+
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes blink-caret {
+
+  0%,
+  100% {
+    border-color: transparent;
+  }
+
+  50% {
+    border-color: #BA2626;
+  }
+}
+
 .about-page {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 20px;
-  overflow-y: auto;
+  font-family: 'Arial', sans-serif;
+  margin: 20px;
 }
 
 .about-section {
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 }
 
 .about-section h2 {
-  display: inline-block;
-  border: 3px solid #BA2626;
-  padding: 10px;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #BA2626;
+  /* Use the consistent red color */
 }
 
-.about-section p {
-  margin-top: 10px;
-  background-color: rgba(229, 171, 171, 0.5);
-  padding: 10px;
-}
-
-/* Team Members Styles */
 .team-members {
   display: flex;
+  justify-content: center;
+  gap: 20px;
+  /* Moderate space between team members */
   flex-wrap: wrap;
-  justify-content: space-between;
+  margin-top: 20px;
 }
 
 .team-member {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  width: 30%;
+  width: 150px;
+  /* Keep container width smaller for the original look */
   margin-bottom: 20px;
 }
 
 .team-member img {
-  width: 50%;
+  width: 120px;
+  /* Width for original oval shape */
+  height: 120px;
+  /* Height for original oval shape */
   border-radius: 50%;
+  /* Keep the oval shape */
+  border: 3px solid #000;
+  /* Black border around images */
+  object-fit: cover;
+  /* Ensure the image content is centered and covers the oval */
 }
 
-.team-member p {
+.team-name {
   margin-top: 10px;
-  font-weight: bold;
-}
-
-/* POST PAGE */
-.post-page-container {
-  padding: 20px;
-  max-width: 800px;
-  margin: 0 auto;
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.post-page-container h1 {
-  text-align: center;
-  margin-bottom: 20px;
+  /* Space between the image and the name */
+  font-size: 1.1rem;
+  font-weight: 600;
   color: #333;
+  /* Ensure the text color is dark and legible */
 }
 
-.post-page-container p {
+
+/* Post Page Container */
+.post-page-container {
+  padding: 40px 20px;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+}
+
+/* Header for the Post Page */
+.post-page-header {
   text-align: center;
-  color: #666;
+  color: #BA2626;
+  /* Red header */
+  font-size: 36px;
+  margin-bottom: 20px;
 }
 
-/* SearchPage Post Styles */
-.post-item {
-  background-color: #fff;
-  padding: 20px;
+/* Add New Post Button */
+.add-post-button {
+  display: block;
+  width: 200px;
+  padding: 10px;
+  margin: 0 auto 20px;
+  background-color: #BA2626;
+  /* Red background */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Button Hover Effect */
+.add-post-button:hover {
+  background-color: #FF4C4C;
+  /* Lighter red on hover */
+}
+
+/* Post Form Modal (If it opens) */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 30px;
   border-radius: 10px;
-  margin: 20px 0;
-  border: 1px solid #D12B2B;
+  width: 400px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
 }
 
-.post-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+.modal-content h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
 }
 
-.post-item h3 {
-  margin-bottom: 10px;
-  font-size: 20px;
-  color: #D12B2B;
-  font-weight: 600;
-  text-transform: capitalize;
+.modal-content input,
+.modal-content textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
 }
 
-.post-item p {
-  margin-bottom: 10px;
-  font-size: 15px;
-  color: #555;
-  line-height: 1.5;
+.modal-content button {
+  width: 100%;
+  padding: 12px;
+  background-color: #6253E1;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.post-item p span {
-  font-weight: 600;
-  color: #C72B2B;
+.modal-content button:hover {
+  background-color: #04BEFE;
+}
+
+/* Optional: Styling for Close Button in Post Form */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+  border: none;
+  font-size: 24px;
+  color: #333;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  color: #BA2626;
 }
 
 /* Optional: Styling for search results container */
@@ -290,18 +474,101 @@ input {
   text-align: center;
 }
 
-/* SEARCH PAGE */
-.search-food-container {
+/* Search Page Container */
+.search-page {
   padding: 20px;
+  background-color: #f9f9f9;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+/* Search Bar */
+.page-title {
+  font-size: 2rem;
+  /* Reduced size */
+  font-weight: 600;
+  /* Semi-bold for a more refined look */
+  color: #BA2626;
+  /* Red color */
+  text-align: center;
+  margin-bottom: 20px;
+  font-family: 'Arial', sans-serif;
+  text-transform: none;
+  /* Removed all caps */
 }
 
 .search-bar {
   width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  margin-bottom: 20px;
+  background-color: white;
+  transition: border 0.3s ease;
 }
+
+.search-bar:focus {
+  border-color: #BA2626;
+  /* Red border on focus */
+  outline: none;
+}
+
+/* Search Results Container */
+.search-results {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  /* Grid layout */
+  gap: 20px;
+}
+
+/* Individual Post Item */
+.post-item {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+  cursor: pointer;
+}
+
+.post-item:hover {
+  transform: translateY(-5px);
+  /* Hover effect */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Post Title */
+.post-item h3 {
+  font-size: 1.5rem;
+  color: #BA2626;
+  margin-bottom: 10px;
+  text-transform: capitalize;
+}
+
+/* Post Details */
+.post-item p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+/* Post Image */
+.post-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+/* No Results Message */
+.search-results p {
+  font-size: 16px;
+  color: #888;
+}
+
 
 /*Delete button*/
 .delete-button {
