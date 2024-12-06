@@ -6,6 +6,24 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Function to delete a post
+  const deletePost = async (postId) => {
+    try {
+      const response = await fetch(`http://localhost:9000/delete-post/${postId}`, {
+        method: 'DELETE',
+      });
+      const result = await response.json();
+      if (result.success) {
+        // Update the posts state to remove the deleted post
+        setPosts((prevPosts) => prevPosts.filter((post) => post._id !== postId));
+      } else {
+        setError('Failed to delete post');
+      }
+    } catch (error) {
+      setError('An error occurred while deleting the post');
+    }
+  };
+  
   // Fetch posts
   useEffect(() => {
     const fetchPosts = async () => {
