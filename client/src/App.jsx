@@ -22,16 +22,48 @@ function App() {
     setPosts(posts.filter((_, index) => index !== indexToDelete));
   };
 
+  async function handleUpload(user) {
+    try {
+      // Create a JSON object instead of FormData
+      const formDataToSend = {
+        googleId: user.sub,
+        email: user.email,
+        displayName: user.name,
+        firstName: user.given_name,
+        lastName: user.family_name,
+        picture: user.picture // Assuming this is a URL, not a file
+      };
+  
+      console.log("Created JSON Data", formDataToSend);
+  
+      const result = await fetch("http://localhost:9000/create-user", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', // Set the appropriate header
+        },
+        body: JSON.stringify(formDataToSend), // Convert the object to a JSON string
+      });
+  
+      const data = await result.json();
+      console.log("Response from server:", data);
+    } catch (error) {
+      console.error("Error during upload:", error);
+    }
+  }
+
   const handleLoginSuccess = (credentialResponse) => {
     console.log('Login successful:', credentialResponse);
 
     const decoded = jwtDecode(credentialResponse.credential);
+    console.log(decoded)
     const userObject = {
       name: decoded.name,
       email: decoded.email,
       picture: decoded.picture,
     };
     setUser(userObject);
+    console.log("Uploading to MongoDB")
+    handleUpload(decoded)
   };
 
   const handleLogout = () => {

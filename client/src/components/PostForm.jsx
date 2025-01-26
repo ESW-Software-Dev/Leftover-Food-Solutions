@@ -82,7 +82,6 @@ const PostForm = ({ isOpen, onClose, addPost }) => {
       formDataToSend.append('date', formData.date);
       formDataToSend.append('foodType', formData.foodType);
       formDataToSend.append('image', formData.image); // Append the image file
-
       const result = await fetch("http://localhost:9000/upload-post", {
         method: 'POST',
         body: formDataToSend,
