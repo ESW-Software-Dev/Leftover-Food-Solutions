@@ -22,14 +22,14 @@ const About = () => {
       <div className="about-section">
         <h2>Meet the Team</h2>
         <div className="team-members">
-          {['TM1', 'TM2', 'TM3', 'TM4'].map((image, index) => (
+          {['TM1', 'TM2', 'TM3', 'TM4', 'TM5'].map((image, index) => (
             <div className="team-member" key={index}>
               <img
                 src={`src/pages/AboutPage/Images/${image}.jpg`}
                 alt={`Team Member ${index + 1}`}
                 className="team-image"
               />
-              <p className="team-name">{['Nadia Wong', 'Ethan Lin', 'Sennet Senadheera', 'Krishna Patel'][index]}</p>
+              <p className="team-name">{['Nadia Wong', 'Ethan Lin', 'Sennet Senadheera', 'Krishna Patel', 'Katelynn Han'][index]}</p>
             </div>
           ))}
         </div>
