@@ -8,6 +8,7 @@ import PostPage from './pages/PostPage';
 import SearchPage from './pages/SearchPage';
 import AboutPage from './pages/AboutPage/AboutPage';
 import Navbar from './components/Navbar';
+import { jwtDecode } from 'jwt-decode';
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -23,12 +24,19 @@ function App() {
 
   const handleLoginSuccess = (credentialResponse) => {
     console.log('Login successful:', credentialResponse);
+
+    const decoded = jwtDecode(credentialResponse.credential);
     const userObject = {
-      name: credentialResponse.profileObj.name,
-      email: credentialResponse.profileObj.email,
-      picture: credentialResponse.profileObj.picture,
+      name: decoded.name,
+      email: decoded.email,
+      picture: decoded.picture,
     };
     setUser(userObject);
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+    console.log('User signed out');
   };
 
   return (
@@ -38,9 +46,44 @@ function App() {
           <Navbar user={user} />
           <div style={{ position: 'absolute', top: '10px', right: '10px', zIndex: 1000 }}>
             {user ? (
-              <div style={{ display: 'flex', alignItems: 'center' }}>
-                <span style={{ marginRight: '10px' }}>{user.name}</span>
-                <img src={user.picture} alt={user.name} style={{ width: '40px', borderRadius: '20px' }} />
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px',
+                color: 'white',
+                fontFamily: "'Lato', sans-serif",
+                fontWeight: 600,
+                fontSize: '16px',
+                padding: '10px 15px',
+                borderRadius: '5px',
+                transition: 'all 0.3s ease',
+                ':hover': {
+                  backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                  transform: 'scale(1.05)'
+                }
+              }}>
+                <span>{user.name}</span>
+                <button
+                  onClick={handleLogout}
+                  style={{
+                    padding: '8px 16px',
+                    borderRadius: '5px',
+                    border: 'none',
+                    backgroundColor: '#D12B2B',
+                    color: 'white',
+                    cursor: 'pointer',
+                    fontWeight: 600,
+                    fontFamily: "'Lato', sans-serif",
+                    fontSize: '14px',
+                    transition: 'all 0.3s ease',
+                    ':hover': {
+                      backgroundColor: '#C72B2B',
+                      transform: 'scale(1.05)'
+                    }
+                  }}
+                >
+                  Logout
+                </button>
               </div>
             ) : (
               <div style={{ padding: '2px' }}>
