@@ -2,8 +2,10 @@ const asyncHandler = require("express-async-handler");
 const User = require('../models/user');
 
 // Create new user profile
-exports.create_user = asyncHandler(async (req, res) => {
+exports.create_user = [asyncHandler(async (req, res) => {
   try {
+    console.log("creating user")
+    console.log(req.body)
     // Check if user already exists
     const existingUser = await User.findOne({ googleId: req.body.googleId });
     
@@ -25,7 +27,7 @@ exports.create_user = asyncHandler(async (req, res) => {
       displayName: req.body.displayName,
       firstName: req.body.firstName,
       lastName: req.body.lastName,
-      profilePicture: req.body.profilePicture
+      profilePicture: req.body.picture
     });
 
     await user.save();
@@ -42,7 +44,8 @@ exports.create_user = asyncHandler(async (req, res) => {
       error: 'Failed to create user profile' 
     });
   }
-});
+}),
+];
 
 // Get user profile
 exports.get_user = asyncHandler(async (req, res) => {
