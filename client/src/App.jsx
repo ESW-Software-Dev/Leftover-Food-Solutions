@@ -78,7 +78,7 @@ function App() {
   };
 
   return (
-    <GoogleOAuthProvider clientId="484980379768-uc7nj2hgg3r6r0g05jfv4bij1k3d47dt.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
       <Router>
         <AppContent user={user} handleLoginSuccess={handleLoginSuccess} handleLogout={handleLogout} posts={posts} addPost={addPost} deletePost={deletePost} />
       </Router>
