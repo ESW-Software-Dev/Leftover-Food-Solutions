@@ -23,7 +23,7 @@ const Home = () => {
       setError('An error occurred while deleting the post');
     }
   };
-  
+
   // Fetch posts
   useEffect(() => {
     const fetchPosts = async () => {
@@ -93,4 +93,3 @@ const Home = () => {
 };
 
 export default Home;
-
