@@ -10,7 +10,8 @@ const PostSchema = new Schema({
     foodType: {type: String},
     updated: {type: Date, default: new Date()},
     imageURL: {type: String},
-    availability: {type: Boolean}
+    availability: {type: Boolean},
+    user: { type: Schema.Types.ObjectId, ref: 'User' }
 })
 
 PostSchema.virtual("url").get(function() {

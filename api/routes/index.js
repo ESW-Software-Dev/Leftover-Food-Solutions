@@ -20,6 +20,7 @@ router.get("/testAPI", function(req, res, next) {
 
 //get all posts
 router.get('/get-all-posts', post_controller.get_posts);
+router.get('/get-users-posts/:id', post_controller.get_posts_by_user)
 // upload
 router.post('/upload-post', upload.single('image'), post_controller.upload_post);
 // delete

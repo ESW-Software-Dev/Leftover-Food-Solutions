@@ -50,23 +50,25 @@ function App() {
 
       const data = await response.json();
       console.log("Server response:", data);
+      return data.user
     } catch (error) {
       console.error("Error during user upload:", error);
     }
   }
 
-  const handleLoginSuccess = (credentialResponse) => {
+  const handleLoginSuccess = async (credentialResponse) => {
     console.log('Login successful:', credentialResponse);
     const decoded = jwtDecode(credentialResponse.credential);
     console.log("Decoded user:", decoded);
-    const userObject = {
-      name: decoded.name,
-      email: decoded.email,
-      picture: decoded.picture,
-    };
-    setUser(userObject);
-    localStorage.setItem('user', JSON.stringify(userObject));
-    handleUpload(decoded);
+    try {
+      let userObject = await handleUpload(decoded);
+      console.log("User object after upload:", userObject);
+      
+      setUser(userObject);
+      localStorage.setItem('user', JSON.stringify(userObject));
+    } catch (error) {
+      console.error("Error handling login success:", error);
+    }
   };
 
   const handleLogout = () => {
@@ -107,7 +109,7 @@ function AppContent({ user, handleLoginSuccess, handleLogout, posts, addPost, de
               borderRadius: '5px',
               transition: 'all 0.3s ease',
             }}>
-              <span>{user.name}</span>
+              <span>{user.displayName}</span>
               <button
                 onClick={handleLogout}
                 style={{

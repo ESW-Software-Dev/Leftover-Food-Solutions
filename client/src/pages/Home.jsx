@@ -5,6 +5,36 @@ const Home = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [user, setUser] = useState(null);
+
+  const fetchPosts = async (userId) => {
+    try {
+        const response = await fetch(`http://localhost:9000/get-users-posts/${userId}`, {
+          method: 'GET'
+        });
+        const result = await response.json();
+        if (result.success) {
+          setPosts(result.data);
+        } else {
+          setError('No posts found');
+        }
+    } catch (err) {
+      setError('Failed to fetch posts');
+    } finally {
+      setLoading(false);
+    }
+    
+  };
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser)
+      setUser(parsedUser);
+      console.log(parsedUser)
+      fetchPosts(parsedUser._id);
+    }
+  }, []);
 
   // Function to delete a post
   const deletePost = async (postId) => {
@@ -23,27 +53,6 @@ const Home = () => {
       setError('An error occurred while deleting the post');
     }
   };
-
-  // Fetch posts
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await fetch('http://localhost:9000/get-all-posts');
-        const result = await response.json();
-        if (result.success) {
-          setPosts(result.data);
-        } else {
-          setError('No posts found');
-        }
-      } catch (err) {
-        setError('Failed to fetch posts');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPosts();
-  }, []);
 
   return (
     <div className="home-container">

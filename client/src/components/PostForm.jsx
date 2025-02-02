@@ -1,8 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../App.css';
 
 const PostForm = ({ isOpen, onClose, addPost }) => {
   if (!isOpen) return null;
+
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -76,6 +84,7 @@ const PostForm = ({ isOpen, onClose, addPost }) => {
   async function handleUpload() {
     try {
       const formDataToSend = new FormData();
+      formDataToSend.append('user_id', user._id)
       formDataToSend.append('name', formData.name);
       formDataToSend.append('organization', formData.organization);
       formDataToSend.append('location', formData.location);
