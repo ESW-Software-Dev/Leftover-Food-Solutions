@@ -1,5 +1,7 @@
 # Leftover Food Solutions
 
+This project is run by ESW Cornell's Software Development Subteam. The goal of this project is to implement a web application that will streamline the distribution of leftover food on Cornell's campus. The team is using the MERN tech stack to implement this site.
+
 ## Set Up
 1. Clone this repository via git clone in the terminal
 2. cd to the directory of the cloned repository base folder.
@@ -12,7 +14,7 @@ npm install
 npm i -D react-router-dom@latest
 ```
 3. A node_modules folder should appear in the client directory.
-4. Run the react app to make sure your set up is correct. 
+4. Run the react app to make sure your setup is correct. 
 ```
 npm run dev
 ```
