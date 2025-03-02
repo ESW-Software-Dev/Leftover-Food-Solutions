@@ -42,7 +42,7 @@ function App() {
 
       console.log("Uploading user data to MongoDB:", userData);
 
-      const response = await fetch("http://localhost:9000/create-user", {
+      const response = await fetch("https://leftover-food-solutions.onrender.com/create-user", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(userData),

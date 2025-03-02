@@ -9,7 +9,7 @@ const Home = () => {
 
   const fetchPosts = async (userId) => {
     try {
-        const response = await fetch(`http://localhost:9000/get-users-posts/${userId}`, {
+        const response = await fetch(`https://leftover-food-solutions.onrender.com/get-users-posts/${userId}`, {
           method: 'GET'
         });
         const result = await response.json();
@@ -40,7 +40,7 @@ const Home = () => {
   // Function to delete a post
   const deletePost = async (postId) => {
     try {
-      const response = await fetch(`http://localhost:9000/delete-post/${postId}`, {
+      const response = await fetch(`https://leftover-food-solutions.onrender.com/delete-post/${postId}`, {
         method: 'DELETE',
       });
       const result = await response.json();

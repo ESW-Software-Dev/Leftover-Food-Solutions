@@ -91,7 +91,7 @@ const PostForm = ({ isOpen, onClose, addPost }) => {
       formDataToSend.append('date', formData.date);
       formDataToSend.append('foodType', formData.foodType);
       formDataToSend.append('image', formData.image); // Append the image file
-      const result = await fetch("http://localhost:9000/upload-post", {
+      const result = await fetch("https://leftover-food-solutions.onrender.com/upload-post", {
         method: 'POST',
         body: formDataToSend,
       });
@@ -225,7 +225,7 @@ const PostForm = ({ isOpen, onClose, addPost }) => {
             accept="image/*"
             onChange={handleChange}
           />
-          
+
           {errors.image && <span className="error">{errors.image}</span>}
 
           <button type="submit">Submit</button>
