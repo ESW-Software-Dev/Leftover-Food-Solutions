@@ -10,6 +10,7 @@ exports.create_user = [asyncHandler(async (req, res) => {
     const existingUser = await User.findOne({ googleId: req.body.googleId });
     
     if (existingUser) {
+      console.log("Existing user")
       // Update last login time
       existingUser.lastLogin = new Date();
       await existingUser.save();
@@ -29,7 +30,7 @@ exports.create_user = [asyncHandler(async (req, res) => {
       lastName: req.body.lastName,
       profilePicture: req.body.picture
     });
-
+    console.log(user)
     await user.save();
     res.status(201).json({ 
       success: true, 
