@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import '../App.css'; // Assuming your styles are here
+import React, { useState, useEffect } from "react";
+// import "../App.css"; // Assuming your styles are here
+import "./SearchPage.css";
+import SearchBar from "../components/Searchbar.jsx";
 
 const SearchPage = () => {
   const [posts, setPosts] = useState([]); // State to store posts
-  const [searchTerm, setSearchTerm] = useState(''); // State to store search term
+  const [searchTerm, setSearchTerm] = useState(""); // State to store search term
   const [loading, setLoading] = useState(true); // Loading state
   const [error, setError] = useState(null); // Error state
 
@@ -11,16 +13,16 @@ const SearchPage = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch('http://localhost:9000/get-all-posts');
+        const response = await fetch("http://localhost:9000/get-all-posts");
         const result = await response.json();
 
         if (result.success) {
           setPosts(result.data); // Set the posts from API response
         } else {
-          setError('No posts found');
+          setError("No posts found");
         }
       } catch (err) {
-        setError('Failed to fetch posts');
+        setError("Failed to fetch posts");
       } finally {
         setLoading(false); // Stop loading whether success or error
       }
@@ -31,7 +33,7 @@ const SearchPage = () => {
 
   // Filter posts based on search term (foodType or location)
   const filteredPosts = posts.filter(
-    post =>
+    (post) =>
       post.foodType.toLowerCase().includes(searchTerm.toLowerCase()) ||
       post.location.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -58,17 +60,29 @@ const SearchPage = () => {
 
   return (
     <div className="search-page">
-      {/* Title always visible */}
-      <h1 className="page-title">Search Food</h1>
-
       {/* Search input */}
-      <input
-        type="text"
+      <div className="search-bar">
+        <span class="material-symbols-outlined">search</span>
+        <input
+          type="text"
+          placeholder="Search by food type or location..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="search-bar"
+        />
+      </div>
+      {/* 
+      <SearchBar
         placeholder="Search by food type or location..."
-        value={searchTerm}
+        onSearch={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         className="search-bar"
-      />
+        clearable={true}
+      ></SearchBar> */}
+
+      <h2>Recent Posts</h2>
+
+      {/* <Sidebar style={{ color: black }}></Sidebar> */}
 
       {/* Search results */}
       <div className="search-results">
@@ -79,14 +93,16 @@ const SearchPage = () => {
               <img
                 src={post.imageURL}
                 alt={post.foodType}
-                style={{
-                  width: '50%',
-                  height: 'auto',
-                  borderRadius: '10px',
-                  marginBottom: '10px',
-                }}
+                // style={{
+                //   width: "50%",
+                //   height: "auto",
+                //   borderRadius: "10px",
+                //   marginBottom: "10px",
+                // }}
               />
-              <p>By {post.name} ({post.organization})</p>
+              {/* <p>
+                By {post.name} ({post.organization})
+              </p> */}
               <p>Location: {post.location}</p>
               <p>Time: {post.time}</p>
             </div>
@@ -100,11 +116,3 @@ const SearchPage = () => {
 };
 
 export default SearchPage;
-
-
-
-
-
-
-
-

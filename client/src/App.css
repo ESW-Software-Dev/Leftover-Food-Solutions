@@ -1,5 +1,6 @@
 /* Google Font import */
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=search");
 
 /* GENERAL STYLES */
 * {
@@ -10,20 +11,18 @@
 
 body {
   font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
-  padding-top: 70px;
+  background-color: white;
+  padding-top: 0px;
   /* Adjust this to avoid navbar overlap */
+  /* width: 85%; */
   font-size: 16px;
-}
-
-.about-page {
-  padding: 20px;
-  margin-top: 70px;
-  /* Adjusted margin to ensure content isn't hidden */
 }
 
 .app-container {
   text-align: center;
+  height: 100%;
+  width: 100%;
+  background-color: white;
 }
 
 h1,
@@ -51,14 +50,14 @@ button,
 .find-food-button {
   margin: 10px;
   padding: 15px 30px;
-  background-color: #6253E1;
+  background-color: #6253e1;
   color: white;
   border: none;
   border-radius: 5px;
 }
 
 .find-food-button:hover {
-  background-color: #04BEFE;
+  background-color: #04befe;
 }
 
 input {
@@ -71,16 +70,20 @@ input {
 
 /* NAVIGATION BAR */
 .navbar {
-  background: #D5E1B2;
+  background: #ffffff;
   /* Gradient background */
   padding: 10px 20px;
   /* Padding around the navbar */
+  border-right: 1px solid black;
   position: fixed;
-  width: 100%;
+  width: 15%;
+  height: 100%;
   top: 0;
   z-index: 1000;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: start;
+  gap: 10px;
   /* Center the navbar items */
   align-items: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -88,14 +91,13 @@ input {
 }
 
 .navbar a {
-  color: white;
   text-decoration: none;
   font-weight: 600;
-  font-family: 'Lato', sans-serif;
-  font-size: 16px;
-  padding: 10px 15px;
+  font-family: "Lato", sans-serif;
+  font-size: 1em;
+  padding: 10px 10px;
   /* Reduced padding for closer spacing */
-  margin-right: 10px;
+  /* margin-right: 10px; */
   /* Reduced margin between links */
   border-radius: 5px;
   transition: all 0.3s ease;
@@ -108,9 +110,8 @@ input {
 }
 
 .navbar a.active {
-  background-color: #BA2626;
+  background-color: #aedb97;
   /* Active link highlight in red */
-  color: white;
   font-weight: bold;
   border-radius: 8px;
   transform: scale(1.05);
@@ -120,6 +121,10 @@ input {
 .navbar a:active {
   transform: translateY(2px);
   /* Click effect */
+}
+
+.navbar > * {
+  width: 100%;
 }
 
 /* Mobile responsiveness */
@@ -138,8 +143,7 @@ input {
 
 /* FOOTER */
 .footer {
-  background-color: #BA2626;
-  color: white;
+  background-color: #ba2626;
   text-align: center;
   padding: 20px 0 5px 0;
   position: fixed;
@@ -152,17 +156,18 @@ input {
 
 /* HOME PAGE */
 .home-container {
-  font-family: 'Roboto', sans-serif;
-  padding: 20px;
-  background-color: #f9f9f9;
+  background-color: white;
   /* Light background */
   text-align: center;
+  font-family: "Arial", sans-serif;
+  display: block;
+  margin: 65px 30px 0 17%;
 }
 
 .welcome-section {
   padding: 60px 20px;
   background-color: #fff;
-  border-bottom: 4px solid #BA2626;
+  border-bottom: 4px solid #ba2626;
   /* Red border to match navbar */
 }
 
@@ -177,15 +182,16 @@ input {
   /* Keeps text in one line */
   display: inline-block;
   /* Make the text block inline for centering */
-  border-right: 4px solid #BA2626;
+  border-right: 4px solid #ba2626;
   /* Create a cursor effect */
   width: 0;
   /* Start with no width */
-  animation: typing 4s steps(30, end) forwards, blink-caret 0.75s step-end infinite;
+  animation: typing 4s steps(30, end) forwards,
+    blink-caret 0.75s step-end infinite;
 }
 
 .dynamic-text .highlight {
-  color: #BA2626;
+  color: #ba2626;
   /* Highlight "Leftover Food Solutions" in red */
 }
 
@@ -232,13 +238,13 @@ input {
 }
 
 .post-card h3 {
-  color: #BA2626;
+  color: #ba2626;
   /* Red title for posts */
   font-size: 1.5rem;
 }
 
 .delete-button {
-  background-color: #D12B2B;
+  background-color: #d12b2b;
   color: white;
   padding: 10px;
   border: none;
@@ -247,7 +253,7 @@ input {
 }
 
 .delete-button:hover {
-  background-color: #C72B2B;
+  background-color: #c72b2b;
 }
 
 /* Typing Animation */
@@ -262,20 +268,24 @@ input {
 }
 
 @keyframes blink-caret {
-
   0%,
   100% {
     border-color: transparent;
   }
 
   50% {
-    border-color: #BA2626;
+    border-color: #ba2626;
   }
 }
 
 .about-page {
-  font-family: 'Arial', sans-serif;
-  margin: 20px;
+  background-color: white;
+  /* Light background */
+  text-align: center;
+  font-family: "Arial", sans-serif;
+  display: block;
+  margin: 65px 30px 0 17%;
+  align-items: center;
 }
 
 .about-section {
@@ -286,7 +296,7 @@ input {
   font-size: 1.8rem;
   font-weight: bold;
   margin-bottom: 15px;
-  color: #BA2626;
+  color: #ba2626;
   /* Use the consistent red color */
 }
 
@@ -331,18 +341,20 @@ input {
   /* Ensure the text color is dark and legible */
 }
 
-
 /* Post Page Container */
 .post-page-container {
-  padding: 40px 20px;
-  background-color: #f9f9f9;
-  min-height: 100vh;
+  background-color: white;
+  /* Light background */
+  text-align: center;
+  font-family: "Arial", sans-serif;
+  display: block;
+  margin: 65px 30px 0 17%;
 }
 
 /* Header for the Post Page */
 .post-page-header {
   text-align: center;
-  color: #BA2626;
+  color: #ba2626;
   /* Red header */
   font-size: 36px;
   margin-bottom: 20px;
@@ -354,7 +366,7 @@ input {
   width: 200px;
   padding: 10px;
   margin: 0 auto 20px;
-  background-color: #BA2626;
+  background-color: #ba2626;
   /* Red background */
   color: white;
   border: none;
@@ -366,7 +378,7 @@ input {
 
 /* Button Hover Effect */
 .add-post-button:hover {
-  background-color: #FF4C4C;
+  background-color: #ff4c4c;
   /* Lighter red on hover */
 }
 
@@ -411,7 +423,7 @@ input {
 .modal-content button {
   width: 100%;
   padding: 12px;
-  background-color: #6253E1;
+  background-color: #6253e1;
   color: white;
   border: none;
   border-radius: 5px;
@@ -421,7 +433,7 @@ input {
 }
 
 .modal-content button:hover {
-  background-color: #04BEFE;
+  background-color: #04befe;
 }
 
 /* Optional: Styling for Close Button in Post Form */
@@ -437,7 +449,7 @@ input {
 }
 
 .close-button:hover {
-  color: #BA2626;
+  color: #ba2626;
 }
 
 /* Optional: Styling for search results container */
@@ -476,11 +488,12 @@ input {
 
 /* Search Page Container */
 .search-page {
-  padding: 20px;
-  background-color: #f9f9f9;
-  max-width: 1200px;
-  margin: 0 auto;
-  font-family: Arial, sans-serif;
+  background-color: white;
+  /* Light background */
+  text-align: center;
+  font-family: "Arial", sans-serif;
+  display: block;
+  margin: 65px 30px 0 17%;
 }
 
 /* Search Bar */
@@ -489,11 +502,11 @@ input {
   /* Reduced size */
   font-weight: 600;
   /* Semi-bold for a more refined look */
-  color: #BA2626;
+  color: #ba2626;
   /* Red color */
   text-align: center;
   margin-bottom: 20px;
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
   text-transform: none;
   /* Removed all caps */
 }
@@ -510,71 +523,16 @@ input {
 }
 
 .search-bar:focus {
-  border-color: #BA2626;
+  border-color: #ba2626;
   /* Red border on focus */
   outline: none;
 }
-
-/* Search Results Container */
-.search-results {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  /* Grid layout */
-  gap: 20px;
-}
-
-/* Individual Post Item */
-.post-item {
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  text-align: center;
-  cursor: pointer;
-}
-
-.post-item:hover {
-  transform: translateY(-5px);
-  /* Hover effect */
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-}
-
-/* Post Title */
-.post-item h3 {
-  font-size: 1.5rem;
-  color: #BA2626;
-  margin-bottom: 10px;
-  text-transform: capitalize;
-}
-
-/* Post Details */
-.post-item p {
-  font-size: 14px;
-  color: #555;
-  margin-bottom: 8px;
-}
-
-/* Post Image */
-.post-item img {
-  width: 100%;
-  height: auto;
-  border-radius: 10px;
-  margin-bottom: 15px;
-}
-
-/* No Results Message */
-.search-results p {
-  font-size: 16px;
-  color: #888;
-}
-
 
 /*Delete button*/
 .delete-button {
   margin-top: 10px;
   padding: 8px 16px;
-  background-color: #D12B2B;
+  background-color: #d12b2b;
   color: white;
   border: none;
   border-radius: 5px;
@@ -582,7 +540,7 @@ input {
 }
 
 .delete-button:hover {
-  background-color: #C72B2B;
+  background-color: #c72b2b;
 }
 
 /*Login Button*/
@@ -632,7 +590,6 @@ input {
 .login-form button[type="button"] {
   background-color: red;
 }
-
 
 .login-form button[type="button"] {
   background-color: red;
