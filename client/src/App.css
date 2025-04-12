@@ -184,7 +184,7 @@ input {
   /* Make the text block inline for centering */
   border-right: 4px solid #ba2626;
   /* Create a cursor effect */
-  width: 0;
+  /* width: 0; */
   /* Start with no width */
   animation: typing 4s steps(30, end) forwards,
     blink-caret 0.75s step-end infinite;
