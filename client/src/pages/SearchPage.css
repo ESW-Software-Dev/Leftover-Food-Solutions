@@ -5,11 +5,15 @@
 /* Search Results Container */
 .search-results {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(4, 1fr));
-  overflow-y: auto;
+  grid-template-columns: repeat(auto-fit, min(25%, 0.5fr));
+  /* edit later */
+  height: 85%;
+  overflow-y: scroll;
   /* Grid layout */
   gap: 70px;
-  padding: 0px 50px 50px 50px;
+  scrollbar-width: 5px;
+  padding: 0px 15px 60px 60px;
+  scroll-behavior: smooth;
 }
 
 /* Individual Post Item */
