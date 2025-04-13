@@ -1,23 +1,13 @@
-.search-page {
-  font-family: "Times New Roman", Times, serif;
-}
-
-/* Search Results Container */
-.search-results {
+.posts-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, min(25%, 0.5fr));
-  /* edit later */
-  height: 85%;
-  overflow-y: scroll;
+  grid-template-columns: repeat(3, minmax(100px, 1fr));
+  overflow-y: auto;
   /* Grid layout */
   gap: 70px;
-  scrollbar-width: 5px;
-  padding: 0px 15px 60px 60px;
-  scroll-behavior: smooth;
+  padding: 0px 50px 50px 50px;
 }
 
-/* Individual Post Item */
-.post-item {
+.post-card {
   padding: 0;
   padding-top: 1em;
   background-color: rgb(253, 253, 253);
@@ -28,21 +18,14 @@
   aspect-ratio: 1/1;
 }
 
-.post-item:hover {
+.post-card:hover {
   transform: translateY(-5px);
   /* Hover effect */
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
 }
 
 /* Post Title */
-.post-item h3 {
-  font-size: 1.5em;
-  margin: 10px;
-  text-transform: capitalize;
-  text-align: left;
-}
-
-.search-page h2 {
+.post-card h3 {
   font-size: 1.5em;
   margin: 10px;
   text-transform: capitalize;
@@ -50,26 +33,16 @@
 }
 
 /* Post Details */
-.post-item p {
+.post-card p {
   font-size: 1.5em;
   text-align: left;
   margin: 0.5em;
 }
 
 /* Post Image */
-.post-item img {
+.post-card img {
   width: 100%;
   height: 70%;
-}
-
-.search-page h2,
-.post-item h3,
-.post-item p {
-  font-weight: normal;
-}
-
-.search-page h2 {
-  margin-top: 50px;
 }
 
 .search-bar {

@@ -15,6 +15,7 @@ import AboutPage from "./pages/AboutPage/AboutPage";
 import Navbar from "./components/Navbar";
 import LoginPage from "./pages/LoginPage";
 import { jwtDecode } from "jwt-decode";
+import "./App.css";
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -167,7 +168,6 @@ function AppContent({
           )}
         </div>
       )}
-
       <main>
         <Routes>
           <Route
@@ -213,9 +213,8 @@ function AppContent({
             element={user ? <AboutPage /> : <Navigate to="/login" />}
           />
         </Routes>
+        <Footer />
       </main>
-
-      <Footer />
     </div>
   );
 }
