@@ -9,7 +9,7 @@ const Posts = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch('http://localhost:9000/get-all-posts');
+        const response = await fetch('https://leftover-food-solutions.onrender.com/get-all-posts');
         const result = await response.json();
         if (result.success) {
           setPosts(result.data); // Set posts to state

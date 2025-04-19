@@ -1,0 +1,60 @@
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(100px, 1fr));
+  overflow-y: auto;
+  /* Grid layout */
+  gap: 70px;
+  padding: 0px 50px 50px 50px;
+}
+
+.post-card {
+  padding: 0;
+  padding-top: 1em;
+  background-color: rgb(253, 253, 253);
+  border-radius: 15px;
+  box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  aspect-ratio: 1/1;
+}
+
+.post-card:hover {
+  transform: translateY(-5px);
+  /* Hover effect */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Post Title */
+.post-card h3 {
+  font-size: 1.5em;
+  margin: 10px;
+  text-transform: capitalize;
+  text-align: left;
+}
+
+/* Post Details */
+.post-card p {
+  font-size: 1.5em;
+  text-align: left;
+  margin: 0.5em;
+}
+
+/* Post Image */
+.post-card img {
+  width: 100%;
+  height: 70%;
+}
+
+.search-bar {
+  display: flex;
+  margin: 0;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 30px;
+  padding: 8px;
+  background-color: rgb(244, 244, 244);
+}
+
+.search-bar input {
+  border: none;
+}

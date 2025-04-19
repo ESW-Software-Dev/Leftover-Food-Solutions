@@ -1,21 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import Footer from './components/Footer';
-import Home from './pages/Home';
-import PostPage from './pages/PostPage';
-import SearchPage from './pages/SearchPage';
-import AboutPage from './pages/AboutPage/AboutPage';
-import Navbar from './components/Navbar';
-import LoginPage from './pages/LoginPage';
-import { jwtDecode } from 'jwt-decode';
+import React, { useState, useEffect } from "react";
+import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  useLocation,
+} from "react-router-dom";
+import Footer from "./components/Footer";
+import Home from "./pages/Home";
+import PostPage from "./pages/PostPage";
+import SearchPage from "./pages/SearchPage";
+import AboutPage from "./pages/AboutPage/AboutPage";
+import Navbar from "./components/Navbar";
+import LoginPage from "./pages/LoginPage";
+import { jwtDecode } from "jwt-decode";
+import "./App.css";
 
 function App() {
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem('user');
+    const storedUser = localStorage.getItem("user");
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
@@ -42,30 +49,33 @@ function App() {
 
       console.log("Uploading user data to MongoDB:", userData);
 
-      const response = await fetch("http://localhost:9000/create-user", {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(userData),
-      });
+      const response = await fetch(
+        "https://leftover-food-solutions.onrender.com/create-user",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(userData),
+        }
+      );
 
       const data = await response.json();
       console.log("Server response:", data);
-      return data.user
+      return data.user;
     } catch (error) {
       console.error("Error during user upload:", error);
     }
   }
 
   const handleLoginSuccess = async (credentialResponse) => {
-    console.log('Login successful:', credentialResponse);
+    console.log("Login successful:", credentialResponse);
     const decoded = jwtDecode(credentialResponse.credential);
     console.log("Decoded user:", decoded);
     try {
       let userObject = await handleUpload(decoded);
       console.log("User object after upload:", userObject);
-      
+
       setUser(userObject);
-      localStorage.setItem('user', JSON.stringify(userObject));
+      localStorage.setItem("user", JSON.stringify(userObject));
     } catch (error) {
       console.error("Error handling login success:", error);
     }
@@ -73,20 +83,34 @@ function App() {
 
   const handleLogout = () => {
     setUser(null);
-    localStorage.removeItem('user');
-    console.log('User signed out');
+    localStorage.removeItem("user");
+    console.log("User signed out");
   };
 
   return (
     <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
       <Router>
-        <AppContent user={user} handleLoginSuccess={handleLoginSuccess} handleLogout={handleLogout} posts={posts} addPost={addPost} deletePost={deletePost} />
+        <AppContent
+          user={user}
+          handleLoginSuccess={handleLoginSuccess}
+          handleLogout={handleLogout}
+          posts={posts}
+          addPost={addPost}
+          deletePost={deletePost}
+        />
       </Router>
     </GoogleOAuthProvider>
   );
 }
 
-function AppContent({ user, handleLoginSuccess, handleLogout, posts, addPost, deletePost }) {
+function AppContent({
+  user,
+  handleLoginSuccess,
+  handleLogout,
+  posts,
+  addPost,
+  deletePost,
+}) {
   const location = useLocation();
   const isLoginPage = location.pathname === "/login";
 
@@ -95,56 +119,102 @@ function AppContent({ user, handleLoginSuccess, handleLogout, posts, addPost, de
       {!isLoginPage && <Navbar user={user} />}
 
       {!isLoginPage && (
-        <div style={{ position: 'absolute', top: '10px', right: '10px', zIndex: 1000 }}>
+        <div
+          style={{
+            position: "absolute",
+            top: "10px",
+            right: "10px",
+            zIndex: 1000,
+          }}
+        >
           {user ? (
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '10px',
-              color: 'white',
-              fontFamily: "'Lato', sans-serif",
-              fontWeight: 600,
-              fontSize: '16px',
-              padding: '10px 15px',
-              borderRadius: '5px',
-              transition: 'all 0.3s ease',
-            }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+                fontFamily: "'Lato', sans-serif",
+                fontWeight: 600,
+                fontSize: "16px",
+                padding: "10px 15px",
+                borderRadius: "5px",
+                transition: "all 0.3s ease",
+              }}
+            >
               <span>{user.displayName}</span>
               <button
                 onClick={handleLogout}
                 style={{
-                  padding: '8px 16px',
-                  borderRadius: '5px',
-                  border: 'none',
-                  backgroundColor: '#D12B2B',
-                  color: 'white',
-                  cursor: 'pointer',
+                  padding: "8px 16px",
+                  borderRadius: "5px",
+                  border: "none",
+                  backgroundColor: "#D12B2B",
+                  color: "white",
+                  cursor: "pointer",
                   fontWeight: 600,
                   fontFamily: "'Lato', sans-serif",
-                  fontSize: '14px',
-                  transition: 'all 0.3s ease',
+                  fontSize: "14px",
+                  transition: "all 0.3s ease",
                 }}
               >
                 Logout
               </button>
             </div>
           ) : (
-            <GoogleLogin onSuccess={handleLoginSuccess} onError={() => console.log('Login Failed')} />
+            <GoogleLogin
+              onSuccess={handleLoginSuccess}
+              onError={() => console.log("Login Failed")}
+            />
           )}
         </div>
       )}
-
       <main>
         <Routes>
-          <Route path="/login" element={user ? <Navigate to="/" /> : <LoginPage onLoginSuccess={handleLoginSuccess} />} />
-          <Route path="/" element={user ? <Home posts={posts} deletePost={deletePost} /> : <Navigate to="/login" />} />
-          <Route path="/post" element={user ? <PostPage posts={posts} addPost={addPost} deletePost={deletePost} /> : <Navigate to="/login" />} />
-          <Route path="/search" element={user ? <SearchPage /> : <Navigate to="/login" />} />
-          <Route path="/about" element={user ? <AboutPage /> : <Navigate to="/login" />} />
+          <Route
+            path="/login"
+            element={
+              user ? (
+                <Navigate to="/" />
+              ) : (
+                <LoginPage onLoginSuccess={handleLoginSuccess} />
+              )
+            }
+          />
+          <Route
+            path="/"
+            element={
+              user ? (
+                <Home posts={posts} deletePost={deletePost} />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+          <Route
+            path="/post"
+            element={
+              user ? (
+                <PostPage
+                  posts={posts}
+                  addPost={addPost}
+                  deletePost={deletePost}
+                />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+          <Route
+            path="/search"
+            element={user ? <SearchPage /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/about"
+            element={user ? <AboutPage /> : <Navigate to="/login" />}
+          />
         </Routes>
+        <Footer />
       </main>
-
-      <Footer />
     </div>
   );
 }

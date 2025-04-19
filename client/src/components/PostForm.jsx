@@ -151,7 +151,9 @@ const PostForm = ({ addPost }) => {
       formDataToSend.append('time', formData.time);
       formDataToSend.append('image', formData.image);
       
-      const result = await fetch("http://localhost:9000/upload-post", {
+//       const result = await fetch("http://localhost:9000/upload-post", {
+//       formDataToSend.append('image', formData.image); // Append the image file
+      const result = await fetch("https://leftover-food-solutions.onrender.com/upload-post", {
         method: 'POST',
         body: formDataToSend,
       });

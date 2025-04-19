@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import '../App.css';
+import React, { useState, useEffect } from "react";
+import "../App.css";
+import "./Home.css";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
@@ -9,30 +10,32 @@ const Home = () => {
 
   const fetchPosts = async (userId) => {
     try {
-        const response = await fetch(`http://localhost:9000/get-users-posts/${userId}`, {
-          method: 'GET'
-        });
-        const result = await response.json();
-        if (result.success) {
-          setPosts(result.data);
-        } else {
-          setError('No posts found');
+      const response = await fetch(
+        `https://leftover-food-solutions.onrender.com/get-users-posts/${userId}`,
+        {
+          method: "GET",
         }
+      );
+      const result = await response.json();
+      if (result.success) {
+        setPosts(result.data);
+      } else {
+        setError("No posts found");
+      }
     } catch (err) {
-      setError('Failed to fetch posts');
+      setError("Failed to fetch posts");
     } finally {
       setLoading(false);
     }
-    
   };
 
   useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    console.log(storedUser)
+    const storedUser = localStorage.getItem("user");
+    console.log(storedUser);
     if (storedUser) {
-      const parsedUser = JSON.parse(storedUser)
+      const parsedUser = JSON.parse(storedUser);
       setUser(parsedUser);
-      console.log(parsedUser)
+      console.log(parsedUser);
       fetchPosts(parsedUser._id);
     }
   }, []);
@@ -40,18 +43,23 @@ const Home = () => {
   // Function to delete a post
   const deletePost = async (postId) => {
     try {
-      const response = await fetch(`http://localhost:9000/delete-post/${postId}`, {
-        method: 'DELETE',
-      });
+      const response = await fetch(
+        `https://leftover-food-solutions.onrender.com/delete-post/${postId}`,
+        {
+          method: "DELETE",
+        }
+      );
       const result = await response.json();
       if (result.success) {
         // Update the posts state to remove the deleted post
-        setPosts((prevPosts) => prevPosts.filter((post) => post._id !== postId));
+        setPosts((prevPosts) =>
+          prevPosts.filter((post) => post._id !== postId)
+        );
       } else {
-        setError('Failed to delete post');
+        setError("Failed to delete post");
       }
     } catch (error) {
-      setError('An error occurred while deleting the post');
+      setError("An error occurred while deleting the post");
     }
   };
 
@@ -62,8 +70,18 @@ const Home = () => {
         <h1 className="dynamic-text">
           Welcome to <span className="highlight">Leftover Food Solutions</span>
         </h1>
+        <script>
+          {/* {document
+            .getElementsByClassName("dynamic-text")[0]
+            .addEventListener("animationend", () => {
+              // document.getElementById("dynamic-text").style.whiteSpace = "wrap";
+            })} */}
+        </script>
         <p className="blurb">
-          Discover and share leftover food across campus! Below, you'll find your recent posts. Use the tabs above to add or search for food and join us in reducing food waste. Learn more about us on the About Us page.
+          Discover and share leftover food across campus! Below, you'll find
+          your recent posts. Use the tabs above to add or search for food and
+          join us in reducing food waste. Learn more about us on the About Us
+          page.
         </p>
       </div>
 
@@ -88,7 +106,10 @@ const Home = () => {
                 <p>
                   <strong>Time:</strong> {post.time}
                 </p>
-                <button className="delete-button" onClick={() => deletePost(post._id)}>
+                <button
+                  className="delete-button"
+                  onClick={() => deletePost(post._id)}
+                >
                   Delete Post
                 </button>
               </div>
