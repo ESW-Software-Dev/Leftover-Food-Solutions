@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import '../App.css';
+import React, { useState, useEffect, useCallback } from 'react';
+import './PostForm.css';
 
-const PostForm = ({ isOpen, onClose, addPost }) => {
-  if (!isOpen) return null;
-
+const PostForm = ({ addPost }) => {
   const [user, setUser] = useState(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [previewImage, setPreviewImage] = useState(null);
+  
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
@@ -20,20 +21,76 @@ const PostForm = ({ isOpen, onClose, addPost }) => {
     time: '',
     foodType: '',
     servings: 0,
-    images: [''],
-    image: null, // Changed from images to image
+    image: null,
     availability: true,
   });
 
   const [errors, setErrors] = useState({});
 
+  // Handle drag events
+  const handleDragEnter = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  };
+  
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+  };
+  
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!isDragging) {
+      setIsDragging(true);
+    }
+  };
+  
+  const handleDrop = useCallback((e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+    
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      const file = e.dataTransfer.files[0];
+      
+      // Check if file is an image
+      if (file.type.startsWith('image/')) {
+        setFormData({ ...formData, image: file });
+        
+        // Create preview
+        const reader = new FileReader();
+        reader.onload = () => {
+          setPreviewImage(reader.result);
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+  }, [formData]);
+
   const handleChange = (e) => {
-    const { name, value, type } = e.target;
+    const { name, value, type, files } = e.target;
     if (type === 'file') {
-      setFormData({ ...formData, image: e.target.files[0] }); // Set the image file
+      if (files && files.length > 0) {
+        setFormData({ ...formData, image: files[0] });
+        
+        // Create preview
+        const reader = new FileReader();
+        reader.onload = () => {
+          setPreviewImage(reader.result);
+        };
+        reader.readAsDataURL(files[0]);
+      }
     } else {
       setFormData({ ...formData, [name]: value });
     }
+  };
+
+  const removeImage = () => {
+    setFormData({ ...formData, image: null });
+    setPreviewImage(null);
   };
 
   const validate = () => {
@@ -60,7 +117,7 @@ const PostForm = ({ isOpen, onClose, addPost }) => {
     }
 
     if (formData.servings == 0) {
-      newErrors.foodType = 'Number of servings needs to be greater than 0'
+      newErrors.servings = 'Number of servings needs to be greater than 0';
     }
 
     // Validate date (must be a valid date in the future)
@@ -84,13 +141,16 @@ const PostForm = ({ isOpen, onClose, addPost }) => {
   async function handleUpload() {
     try {
       const formDataToSend = new FormData();
-      formDataToSend.append('user_id', user._id)
+      formDataToSend.append('user_id', user ? user._id : '');
       formDataToSend.append('name', formData.name);
       formDataToSend.append('organization', formData.organization);
       formDataToSend.append('location', formData.location);
       formDataToSend.append('date', formData.date);
       formDataToSend.append('foodType', formData.foodType);
-      formDataToSend.append('image', formData.image); // Append the image file
+      formDataToSend.append('servings', formData.servings);
+      formDataToSend.append('time', formData.time);
+      formDataToSend.append('image', formData.image);
+      
       const result = await fetch("http://localhost:9000/upload-post", {
         method: 'POST',
         body: formDataToSend,
@@ -98,7 +158,7 @@ const PostForm = ({ isOpen, onClose, addPost }) => {
       const data = await result.json();
       console.log(data);
       if (data.success) {
-        addPost(data.post); // Call the addPost function to update state in the parent component
+        addPost(data.post);
       }
     } catch (error) {
       console.error(error);
@@ -115,121 +175,146 @@ const PostForm = ({ isOpen, onClose, addPost }) => {
         organization: '',
         location: '',
         date: '',
+        time: '',
         foodType: '',
-        image: null, // Reset image
+        servings: 0,
+        image: null,
         availability: true,
       });
-      onClose();
+      setPreviewImage(null);
     }
   };
 
-  const inputStyle = {
-    marginBottom: '10px',
-    padding: '10px',
-    width: '100%',
-  };
-
-  const buttonStyle = {
-    padding: '10px 20px',
-    margin: '5px',
-    cursor: 'pointer',
-  };
-
-  const buttonContainerStyle = {
-    display: 'flex',
-    justifyContent: 'space-between',
-    marginTop: '10px',
-  };
-
   return (
-    <div className="modal-overlay">
-      <div className="modal-content">
-        <h2>Add a Post</h2>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="name"
-            placeholder="Name"
-            value={formData.name}
-            onChange={handleChange}
-            style={inputStyle}
-          />
-          {errors.name && <span className="error">{errors.name}</span>}
+    <div className="post-form-container">
+      <div className="post-form-content">
+        {/* Image Drop Zone - Left Side */}
+        <div 
+          className={`image-drop-container ${isDragging ? 'drag-over' : ''}`}
+          onDragEnter={handleDragEnter}
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
+        >
+          {previewImage ? (
+            <div className="preview-container">
+              <img src={previewImage} alt="Preview" className="image-preview" />
+              <button 
+                type="button" 
+                className="remove-image-btn" 
+                onClick={removeImage}
+              >
+                Remove Image
+              </button>
+            </div>
+          ) : (
+            <div className="upload-prompt">
+              <div className="drag-instructions">
+                <p>Drag & drop an image here</p>
+                <p>- or -</p>
+                <input
+                  type="file"
+                  name="image"
+                  accept="image/*"
+                  onChange={handleChange}
+                  className="file-input"
+                />
+              </div>
+              {errors.image && <span className="error">{errors.image}</span>}
+            </div>
+          )}
+        </div>
+        
+        {/* Form Inputs - Right Side */}
+        <div className="form-inputs-container">
+          <form onSubmit={handleSubmit}>
+            <div className="input-group">
+              <input
+                type="text"
+                name="name"
+                placeholder="Name"
+                value={formData.name}
+                onChange={handleChange}
+                className="form-input"
+              />
+              {errors.name && <span className="error">{errors.name}</span>}
+            </div>
 
-          <input
-            type="text"
-            name="organization"
-            placeholder="Organization"
-            value={formData.organization}
-            onChange={handleChange}
-            style={inputStyle}
+            <div className="input-group">
+              <input
+                type="text"
+                name="organization"
+                placeholder="Organization"
+                value={formData.organization}
+                onChange={handleChange}
+                className="form-input"
+              />
+              {errors.organization && <span className="error">{errors.organization}</span>}
+            </div>
 
-          />
-          {errors.organization && <span className="error">{errors.organization}</span>}
+            <div className="input-group">
+              <input
+                type="text"
+                name="location"
+                placeholder="Location"
+                value={formData.location}
+                onChange={handleChange}
+                className="form-input"
+              />
+              {errors.location && <span className="error">{errors.location}</span>}
+            </div>
 
-          <input
-            type="text"
-            name="location"
-            placeholder="Location"
-            value={formData.location}
-            onChange={handleChange}
-            style={inputStyle}
+            <div className="input-group">
+              <input
+                type="date"
+                name="date"
+                value={formData.date}
+                onChange={handleChange}
+                className="form-input"
+              />
+              {errors.date && <span className="error">{errors.date}</span>}
+            </div>
 
-          />
-          {errors.location && <span className="error">{errors.location}</span>}
+            <div className="input-group">
+              <input
+                type="time"
+                name="time"
+                value={formData.time}
+                onChange={handleChange}
+                className="form-input"
+              />
+              {errors.time && <span className="error">{errors.time}</span>}
+            </div>
 
-          <input
-            type="date"
-            name="date"
-            value={formData.date}
-            onChange={handleChange}
-            style={inputStyle}
+            <div className="input-group">
+              <input
+                type="text"
+                name="foodType"
+                placeholder="Food Type"
+                value={formData.foodType}
+                onChange={handleChange}
+                className="form-input"
+              />
+              {errors.foodType && <span className="error">{errors.foodType}</span>}
+            </div>
 
-          />
-          {errors.date && <span className="error">{errors.date}</span>}
+            <div className="input-group">
+              <input
+                type="number"
+                name="servings"
+                placeholder="Number of Servings"
+                value={formData.servings}
+                onChange={handleChange}
+                className="form-input"
+              />
+              {errors.servings && <span className="error">{errors.servings}</span>}
+            </div>
 
-          <input
-            type="time"
-            name="time"
-            placeholder={formData.time}
-            onChange={handleChange}
-            style={inputStyle}
-
-          />
-          {errors.time && <span className='error'>{errors.time}</span>}
-
-          <input
-            type="text"
-            name="foodType"
-            placeholder="Food Type"
-            value={formData.foodType}
-            onChange={handleChange}
-            style={inputStyle}
-
-          />
-          {errors.foodType && <span className="error">{errors.foodType}</span>}
-
-          <input
-            type="number"
-            name="servings"
-            placeholder="0"
-            value={formData.servings}
-            onChange={handleChange}
-            style={inputStyle}
-          />
-          {errors.servings && <span className="error">{errors.servings}</span>}
-
-          <input
-            type="file"
-            name="image"
-            accept="image/*"
-            onChange={handleChange}
-          />
-          
-          {errors.image && <span className="error">{errors.image}</span>}
-
-          <button type="submit">Submit</button>
-        </form>
+            <div className="form-actions">
+              <button type="submit" className="submit-btn">Submit</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );
