@@ -5,7 +5,7 @@
 /* Search Results Container */
 .search-results {
   display: grid;
-  grid-template-columns: repeat(auto-fit, min(25%, 0.5fr));
+  grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));
   /* edit later */
   height: 85%;
   overflow-y: scroll;
