@@ -1,6 +1,6 @@
 .posts-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(100px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));
   overflow-y: auto;
   /* Grid layout */
   gap: 70px;
