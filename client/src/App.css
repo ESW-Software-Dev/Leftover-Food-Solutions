@@ -127,7 +127,7 @@ input {
   /* Click effect */
 }
 
-.navbar > * {
+.navbar>* {
   width: 100%;
 }
 
@@ -274,6 +274,7 @@ input {
 }
 
 @keyframes blink-caret {
+
   0%,
   100% {
     border-color: transparent;
@@ -602,4 +603,8 @@ input {
 
 .login-form button[type="button"] {
   background-color: red;
+}
+
+.navbar {
+  /*ureowure*/
 }
