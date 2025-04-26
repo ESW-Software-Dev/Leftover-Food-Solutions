@@ -26,6 +26,7 @@
 
 /* Post Title */
 .post-card h3 {
+  font-size: 1.5em;
   margin: 10px;
   text-transform: capitalize;
   text-align: left;
@@ -33,6 +34,7 @@
 
 /* Post Details */
 .post-card p {
+  font-size: 1.5em;
   text-align: left;
   margin: 0.5em;
 }
