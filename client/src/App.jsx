@@ -14,6 +14,7 @@ import SearchPage from "./pages/SearchPage";
 import AboutPage from "./pages/AboutPage/AboutPage";
 import Navbar from "./components/Navbar";
 import LoginPage from "./pages/LoginPage";
+import Profile from "./pages/Profile";
 import { jwtDecode } from "jwt-decode";
 import "./App.css";
 
@@ -141,7 +142,6 @@ function AppContent({
                 transition: "all 0.3s ease",
               }}
             >
-              <span>{user.displayName}</span>
               <button
                 onClick={handleLogout}
                 style={{
@@ -205,12 +205,12 @@ function AppContent({
             }
           />
           <Route
-            path="/search"
-            element={user ? <SearchPage /> : <Navigate to="/login" />}
-          />
-          <Route
             path="/about"
             element={user ? <AboutPage /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/profile"
+            element={user ? <Profile /> : <Navigate to="/login" />}
           />
         </Routes>
         <Footer />

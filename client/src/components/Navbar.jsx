@@ -13,8 +13,8 @@ const Navbar = ({ user, handleLogout }) => {
       <NavLink to="/post" activeClassName="active">
         Post
       </NavLink>
-      <NavLink to="/search" activeClassName="active">
-        Search
+      <NavLink to="/profile" activeClassName="active">
+        Profile
       </NavLink>
       <NavLink to="/about" activeClassName="active">
         About
