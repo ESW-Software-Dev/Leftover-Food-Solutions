@@ -8,9 +8,11 @@ const PostSchema = new Schema({
     location: {type: String},
     date: {type: Date, default: new Date()},
     foodType: {type: String},
+    description: {type: String},
     updated: {type: Date, default: new Date()},
     imageURL: {type: String},
     availability: {type: Boolean},
+    duration: {type: Number},
     user: { type: Schema.Types.ObjectId, ref: 'User' }
 })
 

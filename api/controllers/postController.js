@@ -5,43 +5,23 @@ const Post = require("../models/post");
 const User = require("../models/user");
 const cloudinary = require("../config/cloudinaryConfig");
 // Handle Category create on POST.
+
 exports.upload_post = [
-  // Validate and sanitize the name field (uncomment if needed)
-  // body("name", "Item name must contain at least 3 characters")
-  //   .trim()
-  //   .isLength({ min: 3 })
-  //   .escape(),
-
-  // Process request after validation and sanitization.
   asyncHandler(async (req, res, next) => {
-    console.log("uploading post");
-
-    // Extract validation errors if any (uncomment if needed)
-    // const errors = validationResult(req);
-    // if (!errors.isEmpty()) {
-    //   console.error('Errors:', errors);
-    //   return res.status(500).json({ success: false, error: 'Failed to add item' });
-    // }
+    console.log("Uploading post");
 
     let imgURL = "";
     if (req.file) {
-      console.log(req.file);
       try {
-        // Upload to Cloudinary
         const result = await new Promise((resolve, reject) => {
-          cloudinary.uploader
-            .upload_stream(
-              { resource_type: "image" }, // Ensure this is set to 'image'
-              (error, result) => {
-                if (error) {
-                  return reject(error);
-                }
-                resolve(result);
-              }
-            )
-            .end(req.file.buffer);
+          cloudinary.uploader.upload_stream(
+            { resource_type: 'image' },
+            (error, result) => {
+              if (error) return reject(error);
+              resolve(result);
+            }
+          ).end(req.file.buffer);
         });
-        console.log(result.secure_url);
         imgURL = result.secure_url;
       } catch (error) {
         console.error("Error uploading to Cloudinary:", error);
@@ -50,36 +30,44 @@ exports.upload_post = [
           .json({ success: false, message: "Error uploading image" });
       }
     }
-    const user_id = req.body.user_id;
-    // Create a Post object with escaped and trimmed data.
+
+    const userId = req.body.user;
+
     const post = new Post({
       name: req.body.name,
       organization: req.body.organization,
       location: req.body.location,
       foodType: req.body.foodType,
+      description: req.body.description,
+      duration: req.body.duration, // should be a number in milliseconds already
+      availability: req.body.availability === 'true' || req.body.availability === true, // ensure boolean
       imageURL: imgURL,
-      availability: req.body.availability,
-      user: user_id,
+      user: userId,
     });
 
-    // Save the new Post
     try {
       await post.save();
-      console.log("post saved:", post);
+      console.log('Post saved:', post);
 
-      const user = await User.findById(user_id).exec();
-      user.posts.push(post);
-      await user.save();
+      // Link the post to the user
+      const user = await User.findById(userId).exec();
+      if (user) {
+        user.posts.push(post._id);
+        await user.save();
+      }
 
-      console.log("uploaded post");
-      // Send the generated URL back to the client
-      res.status(200).json({ success: true, url: imgURL }); // Corrected here
+      console.log("Uploaded post successfully");
+
+      // Send back the created post object
+      res.status(200).json({ success: true, post });
     } catch (err) {
       console.error("Error saving post:", err);
       res.status(500).json({ success: false, message: "Error saving post" });
     }
   }),
 ];
+
+
 
 // get all posts
 exports.get_posts = asyncHandler(async (req, res, next) => {
