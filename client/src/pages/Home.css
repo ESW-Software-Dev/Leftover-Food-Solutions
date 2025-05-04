@@ -4,7 +4,7 @@
   overflow-y: auto;
   /* Grid layout */
   gap: 70px;
-  padding: 0px 50px 50px 50px;
+  /* padding: 0px 50px 50px 50px; */
 }
 
 .post-card {
